@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "340867065092",
+    "firebase_url": "https://mlkit-image-labeling-8bc39.firebaseio.com",
+    "project_id": "mlkit-image-labeling-8bc39",
+    "storage_bucket": "mlkit-image-labeling-8bc39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340867065092:android:d6dea30f249ac307",
+        "android_client_info": {
+          "package_name": "com.haag.mlkit.imagelabeling.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340867065092-rtnih9d2iljcdlks27jq5fb9m9unk51u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.haag.mlkit.imagelabeling.test",
+            "certificate_hash": "199f28ab37863261d8394c9a49e5a21eb2731203"
+          }
+        },
+        {
+          "client_id": "340867065092-un2bc2ta20eg03ajefkghphskeu23ebv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9ok1mpq7BQeTL2bwcPvXpnxh3DXNmNeg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340867065092-un2bc2ta20eg03ajefkghphskeu23ebv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
