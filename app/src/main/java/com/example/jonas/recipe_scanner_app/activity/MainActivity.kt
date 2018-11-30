@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var itemAdapter: ImageLabelAdapter
 
     //Items Detected RecyclerView
-    private var detectedItemsList: ArrayList<Any> = ArrayList()
-    private lateinit var detectedItemAdapter: ImageLabelAdapter
+    private var detectedItemsList: ArrayList<String> = ArrayList()
+    private lateinit var detectedItemAdapter: DetectedImageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 .addOnSuccessListener {
                     // Task completed successfully
                     itemsList.addAll(it)
-                    itemAdapter = ImageLabelAdapter(itemsList, true, true)
+                    itemAdapter = ImageLabelAdapter(itemsList, true)
                     scannedItemRC.adapter = itemAdapter
                 }
                 .addOnFailureListener {
@@ -62,10 +62,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
     fun addWordToDetectedItems(word: String){
         ViewModel.getWord(word).observe(this, Observer {
-            detectedItemsList.add(it!!.toList())
-            detectedItemAdapter = ImageLabelAdapter(detectedItemsList, false, false)
+            /*detectedItemsList.add("Hello")
+            detectedItemsList.add("World")
+            detectedItemsList.add("!")*/
+
+            detectedItemsList.add(it.toString())
+            detectedItemAdapter = DetectedImageAdapter(detectedItemsList)
             collectWordsRV.adapter = detectedItemAdapter
-            Toast.makeText(this, "CLICKED!!!!!! $it", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "CLICKED!!!!!! $detectedItemsList", Toast.LENGTH_SHORT).show()
         })
 
     }

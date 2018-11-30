@@ -9,7 +9,7 @@ import com.google.firebase.ml.vision.cloud.label.FirebaseVisionCloudLabel
 import kotlinx.android.synthetic.main.scanned_word_item.view.*
 import kotlinx.android.synthetic.main.word_item.view.*
 
-class ImageLabelAdapter(private val firebaseVisionList: List<Any>, private val isCloud: Boolean, private val fromFB: Boolean) : RecyclerView.Adapter<ImageLabelAdapter.ItemHolder>() {
+class ImageLabelAdapter(private val firebaseVisionList: List<Any>, private val isCloud: Boolean) : RecyclerView.Adapter<ImageLabelAdapter.ItemHolder>() {
     lateinit var context: Context
 
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -22,31 +22,22 @@ class ImageLabelAdapter(private val firebaseVisionList: List<Any>, private val i
                 else -> itemView.itemAccuracy.setTextColor(ContextCompat.getColor(context, R.color.orange))
             }
             */
-            if (fromFB)
             itemView.scannedWord.text = currentItem.label
-            else
-                itemView.detectedWord.text = currentItem.label
             //itemView.itemAccuracy.text = "Probability : ${(currentItem.confidence * 100).toInt()}%"
         }
-
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val currentItem = firebaseVisionList[position]
-            holder.bindCloud(currentItem as FirebaseVisionCloudLabel)
-        if (fromFB)
-        holder.itemView.setOnClickListener{
-            (context as MainActivity).addWordToDetectedItems(currentItem.label)
-        }
+        holder.bindCloud(currentItem as FirebaseVisionCloudLabel)
+            holder.itemView.setOnClickListener {
+                (context as MainActivity).addWordToDetectedItems(currentItem.label)
+            }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         context = parent.context
-        if (fromFB)
-        return ItemHolder(LayoutInflater.from(context).inflate(R.layout.scanned_word_item, parent, false))
-        else
-            return ItemHolder(LayoutInflater.from(context).inflate(R.layout.word_item, parent, false))
-
+            return ItemHolder(LayoutInflater.from(context).inflate(R.layout.scanned_word_item, parent, false))
     }
 
     override fun getItemCount() = firebaseVisionList.size
