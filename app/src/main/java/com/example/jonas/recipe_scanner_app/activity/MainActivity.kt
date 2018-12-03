@@ -20,6 +20,9 @@ import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import kotlinx.android.synthetic.main.activity_main.*
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.ScaleDrawable
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
 
@@ -39,7 +42,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         scannedItemRC.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         collectWordsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         //scanButton?.setOnClickListener(this)
-        doneButton?.setOnClickListener(this)
+        scanFAB?.setOnClickListener(this)
     }
 
 
@@ -69,9 +72,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             detectedItemsList.add(it.toString())
             detectedItemAdapter = DetectedImageAdapter(detectedItemsList)
             collectWordsRV.adapter = detectedItemAdapter
-            Toast.makeText(this, "CLICKED!!!!!! $detectedItemsList", Toast.LENGTH_SHORT).show()
         })
 
+    }
+
+    fun deleteWordToDetectedItems(position: Int){
+            detectedItemsList.removeAt(position)
+            detectedItemAdapter = DetectedImageAdapter(detectedItemsList)
+            collectWordsRV.adapter = detectedItemAdapter
     }
 
     override fun onClick(v: View?) {

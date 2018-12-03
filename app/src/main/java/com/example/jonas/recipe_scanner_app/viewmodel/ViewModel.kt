@@ -12,7 +12,7 @@ class ViewModel: ViewModel(){
             val text = MutableLiveData<String>()
             text.value = word
             return text
-            }
+        }
     }
 
 }

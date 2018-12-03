@@ -5,9 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.firebase.ml.vision.cloud.label.FirebaseVisionCloudLabel
-import com.haag.mlkit.imagelabeling.test.ImageLabelAdapter.ItemHolder
-import kotlinx.android.synthetic.main.scanned_word_item.view.*
+import android.widget.Toast
 import kotlinx.android.synthetic.main.word_item.view.*
 
 class DetectedImageAdapter(private val list: List<String>) : RecyclerView.Adapter<DetectedImageAdapter.ItemHolder>() {
@@ -27,7 +25,7 @@ class DetectedImageAdapter(private val list: List<String>) : RecyclerView.Adapte
         val currentItem: String = list[position]
         holder.bind(currentItem)
         holder.itemView.setOnClickListener {
-            //notifyItemRemoved(position)
+            (context as MainActivity).deleteWordToDetectedItems(position)
         }
     }
 

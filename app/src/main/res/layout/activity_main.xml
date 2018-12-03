@@ -18,6 +18,36 @@
         app:layout_constraintTop_toTopOf="parent" />
         -->
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/scanFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:text="SCAN"
+        android:textColor="@android:color/black"
+        android:textSize="10sp"
+        app:layout_anchor="@id/scanFAB"
+        app:layout_anchorGravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/scanFAB"
+        app:layout_constraintEnd_toEndOf="@+id/scanFAB"
+        app:layout_constraintStart_toStartOf="@+id/scanFAB"
+        app:layout_constraintTop_toTopOf="@+id/scanFAB" />
+
     <com.wonderkiln.camerakit.CameraView
         android:id="@+id/cameraView"
         android:layout_width="match_parent"
@@ -38,7 +68,8 @@
         app:layout_constraintBottom_toTopOf="@+id/doneButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:orientation="horizontal"/>
+        android:orientation="horizontal"
+        android:clipToPadding="false" />
 
     <Button
         android:id="@+id/doneButton"
@@ -69,13 +100,23 @@
         android:id="@+id/scannedItemRC"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/cameraOutline"
+        layout="@layout/camera_outline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
