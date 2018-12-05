@@ -1,27 +1,20 @@
 package com.haag.mlkit.imagelabeling.test
 
 
-import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import kotlinx.android.synthetic.main.activity_main.*
-import android.graphics.drawable.Drawable
-import android.graphics.drawable.ScaleDrawable
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
@@ -43,6 +36,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         collectWordsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         //scanButton?.setOnClickListener(this)
         scanFAB?.setOnClickListener(this)
+
+        scanLoading.visibility = View.INVISIBLE
     }
 
 
@@ -53,12 +48,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         detector.detectInImage(image)
                 .addOnSuccessListener {
                     // Task completed successfully
+                    scanLoading.visibility = View.INVISIBLE
                     itemsList.addAll(it)
                     itemAdapter = ImageLabelAdapter(itemsList, true)
                     scannedItemRC.adapter = itemAdapter
                 }
                 .addOnFailureListener {
                     // Task failed with an exception
+                    scanLoading.visibility = View.INVISIBLE
                     Toast.makeText(baseContext,"Sorry, something went wrong!", Toast.LENGTH_SHORT).show()
                 }
     }
@@ -83,6 +80,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     override fun onClick(v: View?) {
+        scanLoading.visibility = View.VISIBLE
         cameraView.captureImage { cameraKitImage ->
             // Get the Bitmap from the captured shot
 
@@ -100,8 +98,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
         }
     }
-
-
 
     override fun onResume() {
         super.onResume()
