@@ -6,5 +6,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorGreenButton">#04d400</color>
     <color name="colorGreyWordBorder">#6b6b6b</color>
+    <color name="colorLightBlue">#8DCAFF</color>
 
 </resources>

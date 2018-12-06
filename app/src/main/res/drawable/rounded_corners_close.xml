@@ -8,9 +8,9 @@
                 <solid android:color="#8DCAFF"/>
                 <corners
                     android:bottomLeftRadius="0dip"
-                    android:bottomRightRadius="10dip"
+                    android:bottomRightRadius="50dip"
                     android:topLeftRadius="0dip"
-                    android:topRightRadius="10dip" />
+                    android:topRightRadius="50dip" />
             </shape>
         </inset>
 

@@ -9,9 +9,14 @@
     <TextView
         android:id="@+id/scanLoadingText"
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/scanned_item_rounded_corners_textview"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
         android:text="@string/scan_loading_text"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="40dp"
         app:layout_constraintEnd_toEndOf="@+id/scanLoadingText"
+        app:layout_constraintStart_toStartOf="@+id/scanLoadingText"
         app:layout_constraintTop_toBottomOf="@+id/scanLoadingText" />
 </android.support.constraint.ConstraintLayout>

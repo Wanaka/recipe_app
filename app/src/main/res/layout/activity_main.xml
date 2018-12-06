@@ -18,42 +18,12 @@
         app:layout_constraintTop_toTopOf="parent" />
         -->
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/scanFAB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        app:backgroundTint="@color/colorWhite"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="6dp"
-        android:text="SCAN"
-        android:textColor="@android:color/black"
-        android:textSize="10sp"
-        app:layout_anchor="@id/scanFAB"
-        app:layout_anchorGravity="center"
-        app:layout_constraintBottom_toBottomOf="@+id/scanFAB"
-        app:layout_constraintEnd_toEndOf="@+id/scanFAB"
-        app:layout_constraintStart_toStartOf="@+id/scanFAB"
-        app:layout_constraintTop_toTopOf="@+id/scanFAB" />
-
     <com.wonderkiln.camerakit.CameraView
         android:id="@+id/cameraView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:adjustViewBounds="true"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/collectWordsRV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,50 +34,25 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/collectWordsRV"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toTopOf="@+id/doneButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="110dp"
+        android:clipToPadding="false"
         android:orientation="horizontal"
-        android:clipToPadding="false" />
-
-    <Button
-        android:id="@+id/doneButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorGreenButton"
-        android:text="@string/button_done"
-        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="@string/items_detected"
-        app:layout_constraintBottom_toTopOf="@+id/collectWordsRV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/scannedItemRC"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/scanFAB"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <include
         android:id="@+id/scanLoading"
@@ -116,9 +61,47 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="85dp"
-        app:layout_constraintBottom_toTopOf="@+id/scanFAB"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/scannedItemRC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/scanFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/colorLightBlue"
+        app:layout_constraintBottom_toTopOf="@+id/collectWordsRV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/scanText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="6dp"
+        android:text="@string/scan_button_text"
+        android:textColor="@color/colorWhite"
+        android:textSize="12sp"
+        app:layout_anchor="@id/scanFAB"
+        app:layout_anchorGravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/scanFAB"
+        app:layout_constraintEnd_toEndOf="@+id/scanFAB"
+        app:layout_constraintStart_toStartOf="@+id/scanFAB"
+        app:layout_constraintTop_toTopOf="@+id/scanFAB" />
+
+    <Button
+        android:id="@+id/doneButton"
+        style="@style/DoneButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/done_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
