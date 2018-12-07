@@ -13,6 +13,12 @@ class ViewModel: ViewModel(){
             text.value = word
             return text
         }
+
+        fun getListDetectedItems(list: List<String>): LiveData<List<String>>{
+            val _list = MutableLiveData<List<String>>()
+            _list.value = list
+            return _list
+        }
     }
 
 }

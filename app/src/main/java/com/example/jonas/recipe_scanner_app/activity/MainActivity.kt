@@ -9,10 +9,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
 import com.example.jonas.recipe_scanner_app.constant.Constant
+import com.example.jonas.recipe_scanner_app.helper.Helper
 import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         scanLoading.visibility = View.INVISIBLE
         doneButton.visibility = View.INVISIBLE
     }
+
     private fun getLabelsFromClod(bitmap: Bitmap) {
         val image = FirebaseVisionImage.fromBitmap(bitmap)
         val detector = FirebaseVision.getInstance().visionCloudLabelDetector
@@ -62,7 +65,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     fun addWordToDetectedItems(word: String){
         ViewModel.getWord(word).observe(this, Observer {
             detectedItemsList.add(it.toString())
-            detectedItemAdapter = DetectedImageAdapter(detectedItemsList)
+            detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.MAIN)
             collectWordsRV.adapter = detectedItemAdapter
             showDoneButton()
         })
@@ -70,9 +73,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
     fun deleteWordToDetectedItems(position: Int){
         detectedItemsList.removeAt(position)
-        detectedItemAdapter = DetectedImageAdapter(detectedItemsList)
+        detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.MAIN)
         collectWordsRV.adapter = detectedItemAdapter
         showDoneButton()
+    }
+
+    fun getListFromCategoryActivity(list: ArrayList<String>){
+        Log.d("TAG", "LIST $list")
+
+        ViewModel.getListDetectedItems(list).observe(this, Observer {
+            for(item in it!!) {
+                detectedItemsList.add(item)
+            }
+            detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.MAIN)
+            collectWordsRV.adapter = detectedItemAdapter
+        })
     }
 
     override fun onClick(v: View?) {
@@ -86,8 +101,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
             R.id.doneButton -> {
                 val intent = Intent(this, CategoryActivity::class.java)
-                intent.putExtra("keyIdentifier", "HEllo world!")
+                intent.putStringArrayListExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
                 startActivity (intent)
+                //Helper.createIntent(this,  CategoryActivity::class.java, detectedItemsList)
             }
         }
     }
