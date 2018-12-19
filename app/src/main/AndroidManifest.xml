@@ -27,7 +27,8 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity android:name="com.example.jonas.recipe_scanner_app.activity.CategoryActivity"></activity>
+        <activity android:name="com.example.jonas.recipe_scanner_app.activity.CategoryActivity" />
+        <activity android:name="com.example.jonas.recipe_scanner_app.activity.WebActivity"></activity>
     </application>
 
 </manifest>
