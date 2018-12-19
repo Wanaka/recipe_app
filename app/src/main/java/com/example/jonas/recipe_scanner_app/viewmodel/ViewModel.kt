@@ -3,6 +3,7 @@ package com.example.jonas.recipe_scanner_app.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 
 class ViewModel: ViewModel(){
 

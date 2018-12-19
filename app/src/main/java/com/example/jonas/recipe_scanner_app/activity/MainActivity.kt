@@ -1,9 +1,9 @@
 package com.haag.mlkit.imagelabeling.test
 
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -14,7 +14,7 @@ import android.view.View
 import android.widget.Toast
 import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
 import com.example.jonas.recipe_scanner_app.constant.Constant
-import com.example.jonas.recipe_scanner_app.helper.Helper
+import com.example.jonas.recipe_scanner_app.interfaces.Interfaces
 import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         doneButton.visibility = View.INVISIBLE
     }
 
+    //set in other class
     private fun getLabelsFromClod(bitmap: Bitmap) {
         val image = FirebaseVisionImage.fromBitmap(bitmap)
         val detector = FirebaseVision.getInstance().visionCloudLabelDetector
@@ -78,16 +79,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         showDoneButton()
     }
 
-    fun getListFromCategoryActivity(list: ArrayList<String>){
-        Log.d("TAG", "LIST $list")
-
-        ViewModel.getListDetectedItems(list).observe(this, Observer {
-            for(item in it!!) {
-                detectedItemsList.add(item)
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                val getPutExtraList = data.getStringArrayListExtra(Constant.PUT_EXTRA_KEY)
+                detectedItemsList.clear()
+                for (item in getPutExtraList) detectedItemsList.add(item)
+                detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.MAIN)
+                collectWordsRV.adapter = detectedItemAdapter
             }
-            detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.MAIN)
-            collectWordsRV.adapter = detectedItemAdapter
-        })
+        }
     }
 
     override fun onClick(v: View?) {
@@ -102,12 +104,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             R.id.doneButton -> {
                 val intent = Intent(this, CategoryActivity::class.java)
                 intent.putStringArrayListExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
-                startActivity (intent)
-                //Helper.createIntent(this,  CategoryActivity::class.java, detectedItemsList)
+                startActivityForResult(intent, 1)
             }
         }
     }
 
+    // maybe set in another class ??
     private fun showDoneButton(){
         when {
             detectedItemsList.size >= 1 -> doneButton.visibility = View.VISIBLE

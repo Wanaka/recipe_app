@@ -1,6 +1,7 @@
 package com.example.jonas.recipe_scanner_app.activity
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.haag.mlkit.imagelabeling.test.R
@@ -9,8 +10,6 @@ import android.support.v7.widget.GridLayoutManager
 import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.haag.mlkit.imagelabeling.test.DetectedImageAdapter
 import kotlinx.android.synthetic.main.card_view_detected_items.*
-import android.content.Intent
-import android.util.Log
 import com.haag.mlkit.imagelabeling.test.MainActivity
 
 
@@ -28,6 +27,7 @@ class CategoryActivity : AppCompatActivity() {
         supportActionBar?.setTitle(R.string.category_title)
         /*supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)*/
+
         val getPutExtraList = intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY)
         cardDetectedItemsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         addListToRecyclerView(getPutExtraList)
@@ -48,8 +48,10 @@ class CategoryActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val main =  MainActivity()
-        main.getListFromCategoryActivity(detectedItemsList)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
+        setResult(RESULT_OK, intent)
+        finish()
         super.onBackPressed()
     }
 }
