@@ -33,23 +33,25 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_category)
         setSupportActionBar(custom_toolbar)
         supportActionBar?.setTitle(R.string.category_title)
-        /*supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)*/
         category_fab_addMoreItems.setOnClickListener(this)
         category_button_findRecipe.setOnClickListener(this)
+        cardDetectedItemsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
+        card_rv_platform_rv.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
 
         //Get list from MainActivity and put it in RecyclerView
         val getList = intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY)
-        cardDetectedItemsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         addListToRecyclerView(getList)
 
         //Platform recyclerview
-        card_rv_platform_rv.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         addPlatformsRecyclerView()
     }
 
     private fun addPlatformsRecyclerView(){
-        platformItemAdapter = PlatformAdapter(platformItemsList, Constant.CATEGORY)
+         var getList: ArrayList<String> = ArrayList()
+         getList.add("Sausage")
+         getList.add("onion")
+         getList.add("bacon")
+        platformItemAdapter = PlatformAdapter(getList, Constant.CATEGORY)
         card_rv_platform_rv.adapter = platformItemAdapter
     }
 
