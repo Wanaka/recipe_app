@@ -5,4 +5,7 @@ object Constant {
     val PUT_EXTRA_KEY = "keyIdentifier"
     val MAIN = "MAIN"
     val CATEGORY = "CATEGORY"
+    val PLATFORM_URL = "PLATFORM_URL"
+    val BBC = "BBC"
+    val BBC_URL = "https://www.bbcgoodfood.com/search/recipes?query="
 }

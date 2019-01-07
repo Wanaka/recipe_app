@@ -2,8 +2,10 @@ package com.example.jonas.recipe_scanner_app.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.helper.Helper
+import com.example.jonas.recipe_scanner_app.model.Platform
 import com.haag.mlkit.imagelabeling.test.R
 import kotlinx.android.synthetic.main.activity_web.*
 
@@ -12,12 +14,7 @@ class WebActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web)
-
-        val getList = intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY)
-       /* var getList: ArrayList<String> = ArrayList()
-        getList.add("Sausage")
-        getList.add("onion")
-        getList.add("bacon")*/
-        web_webview_web.loadUrl("https://www.bbcgoodfood.com/search/recipes?query=${Helper.queryIngredients(getList)}")
+        web_webview_web.loadUrl("${intent.getParcelableExtra<Platform>(Constant.PLATFORM_URL)._url}" +
+                "${Helper.queryIngredients(intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY))}")
     }
 }

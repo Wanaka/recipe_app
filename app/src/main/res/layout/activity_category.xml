@@ -10,7 +10,9 @@
         android:id="@+id/category_button_findRecipe"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:backgroundTint="@color/colorLightBlue"
+        android:text="@string/button_find"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

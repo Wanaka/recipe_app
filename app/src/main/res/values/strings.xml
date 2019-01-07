@@ -11,6 +11,7 @@
     <string name="category_title">Chose Category</string>
     <string name="title_scanne_items">Scanned Items</string>
     <string name="which_platform">Which platform?</string>
+    <string name="button_find">Find Recipe</string>
 
 
 </resources>

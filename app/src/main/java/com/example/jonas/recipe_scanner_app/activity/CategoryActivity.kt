@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.custom_toolbar.*
 import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import com.example.jonas.recipe_scanner_app.constant.Constant
+import com.example.jonas.recipe_scanner_app.model.Platform
 import com.haag.mlkit.imagelabeling.test.DetectedImageAdapter
 import kotlinx.android.synthetic.main.card_view_detected_items.*
 import com.haag.mlkit.imagelabeling.test.MainActivity
@@ -25,8 +26,9 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
 
     //Platform RecyclerView
     private lateinit var platformItemAdapter: PlatformAdapter
-    private var platformItemsList: ArrayList<String> = ArrayList()
+    var getPlatformsList: MutableList<Platform> = ArrayList()
 
+    private val platformBBC = Platform(Constant.BBC, Constant.BBC_URL) // keep for now
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,23 +41,17 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         card_rv_platform_rv.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
 
         //Get list from MainActivity and put it in RecyclerView
-        val getList = intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY)
-        addListToRecyclerView(getList)
-
-        //Platform recyclerview
-        addPlatformsRecyclerView()
+        addDetectedItemsListRecyclerView(intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY))
+        addPlatformsRecyclerView() //Platform recyclerview
     }
 
     private fun addPlatformsRecyclerView(){
-         var getList: ArrayList<String> = ArrayList()
-         getList.add("Sausage")
-         getList.add("onion")
-         getList.add("bacon")
-        platformItemAdapter = PlatformAdapter(getList, Constant.CATEGORY)
+        getPlatformsList.add(platformBBC)
+        platformItemAdapter = PlatformAdapter(getPlatformsList, Constant.CATEGORY)
         card_rv_platform_rv.adapter = platformItemAdapter
     }
 
-    private fun addListToRecyclerView(list: List<String>){
+    private fun addDetectedItemsListRecyclerView(list: List<String>){
         com.example.jonas.recipe_scanner_app.viewmodel.ViewModel.getListDetectedItems(list).observe(this, Observer {
             for(item in it!!) detectedItemsList.add(item)
             detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.CATEGORY)
@@ -81,6 +77,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
             R.id.category_button_findRecipe -> {
                 val intent = Intent(this, WebActivity::class.java)
                 intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
+                intent.putExtra(Constant.PLATFORM_URL, platformBBC)
                 startActivity(intent)
             }
         }
