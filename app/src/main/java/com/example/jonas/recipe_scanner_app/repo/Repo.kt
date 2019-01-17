@@ -1,15 +1,19 @@
 package com.example.jonas.recipe_scanner_app.repo
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.model.Platform
 
-class Repo(){
+class Repo{
 
-     fun getPlatformItems():List<Platform>{
+     fun getPlatformList(): LiveData<List<Platform>> {
+         var mutablePlatform: MutableLiveData<List<Platform>> = MutableLiveData()
          var platforms: ArrayList<Platform> = ArrayList()
-         val bbcPlatform = Platform("BBC", "https://www.bbcgoodfood.com/search/recipes?query=")
-         val allRecipesPlatform = Platform("All Recipes", "https://www.allrecipes.com/search/results/?wt=")
-         platforms.add(bbcPlatform)
-         platforms.add(allRecipesPlatform)
-         return platforms
+         platforms.add(Platform(Constant.BBC, Constant.BBC_URL))
+         platforms.add(Platform(Constant.ALL_RECIPES, Constant.ALL_RECIPES_URL))
+         mutablePlatform.value = platforms
+         return mutablePlatform
     }
+
 }

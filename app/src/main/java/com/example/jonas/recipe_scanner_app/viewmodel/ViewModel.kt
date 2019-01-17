@@ -3,6 +3,9 @@ package com.example.jonas.recipe_scanner_app.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import com.example.jonas.recipe_scanner_app.model.Platform
+import com.example.jonas.recipe_scanner_app.repo.Repo
+
 
 class ViewModel: ViewModel(){
 
@@ -15,10 +18,15 @@ class ViewModel: ViewModel(){
         }
 
         fun getListDetectedItems(list: List<String>): LiveData<List<String>>{
-            val _list = MutableLiveData<List<String>>()
-            _list.value = list
-            return _list
+            val mutableList = MutableLiveData<List<String>>()
+            mutableList.value = list
+            return mutableList
         }
+
+        fun getPlatformList(): LiveData<List<Platform>>{
+            return Repo().getPlatformList()
+        }
+
     }
 
 }

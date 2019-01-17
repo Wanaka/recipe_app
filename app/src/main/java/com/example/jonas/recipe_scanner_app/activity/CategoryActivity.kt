@@ -7,9 +7,11 @@ import android.support.v7.app.AppCompatActivity
 import com.haag.mlkit.imagelabeling.test.R
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import android.support.v7.widget.GridLayoutManager
+import android.util.Log
 import android.view.View
 import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.model.Platform
+import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
 import com.haag.mlkit.imagelabeling.test.DetectedImageAdapter
 import kotlinx.android.synthetic.main.card_view_detected_items.*
 import com.haag.mlkit.imagelabeling.test.MainActivity
@@ -26,9 +28,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
 
     //Platform RecyclerView
     private lateinit var platformItemAdapter: PlatformAdapter
-    var getPlatformsList: MutableList<Platform> = ArrayList()
-
-    private val platformBBC = Platform(Constant.BBC, Constant.BBC_URL) // keep for now
+    lateinit var sendPlatformFromAdapterToWeb: Platform
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +46,16 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun addPlatformsRecyclerView(){
-        getPlatformsList.add(platformBBC)
-        platformItemAdapter = PlatformAdapter(getPlatformsList, Constant.CATEGORY)
-        card_rv_platform_rv.adapter = platformItemAdapter
+        ViewModel.getPlatformList().observe(this, Observer {
+            platformItemAdapter = PlatformAdapter(it!!, Constant.CATEGORY)
+            card_rv_platform_rv.adapter = platformItemAdapter
+            platformItemAdapter.mOnItemClickListener = object : PlatformAdapter.OnItemClickListener {
+                override fun onItemClick(index: Platform) {
+                    sendPlatformFromAdapterToWeb = index
+                    Log.d("TAG", "CategoryActivity ${index._url}")
+                }
+            }
+        })
     }
 
     private fun addDetectedItemsListRecyclerView(list: List<String>){
@@ -77,7 +84,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
             R.id.category_button_findRecipe -> {
                 val intent = Intent(this, WebActivity::class.java)
                 intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
-                intent.putExtra(Constant.PLATFORM_URL, platformBBC)
+                intent.putExtra(Constant.PLATFORM_URL, sendPlatformFromAdapterToWeb)
                 startActivity(intent)
             }
         }
