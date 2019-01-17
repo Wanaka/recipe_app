@@ -8,6 +8,10 @@ object Constant {
     val PLATFORM_URL = "PLATFORM_URL"
     val BBC = "BBC"
     val BBC_URL = "https://www.bbcgoodfood.com/search/recipes?query="
-    val ALL_RECIPES = "All Recipes"
-    val ALL_RECIPES_URL = "https://www.allrecipes.com/search/results/?wt="
+    val DELISH = "Delish"
+    val DELISH_URL = "https://www.delish.com/search/?q="
+    val JAMIE_OLIVER ="Jamie Oliver"
+    val JAMIE_OLIVER_URL = "https://www.jamieoliver.com/search/?s="
+    val TASTY ="Tasty"
+    val TASTY_URL = "https://tasty.co/search?q="
 }

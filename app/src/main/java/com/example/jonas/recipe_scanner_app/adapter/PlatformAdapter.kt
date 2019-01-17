@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
+import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.model.Platform
 import kotlinx.android.synthetic.main.platform_item.view.*
 
@@ -13,20 +13,21 @@ import kotlinx.android.synthetic.main.platform_item.view.*
 class PlatformAdapter(private val list: List<Platform>, private val whichActivity: String) : RecyclerView.Adapter<PlatformAdapter.ItemHolder>() {
 
     private lateinit var context: Context
-    private var selectedRowPositionWhenClicked = -1
+    private var selectedRowPositionWhenClicked = 0
 
     var mOnItemClickListener: OnItemClickListener? = null
 
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(currentItem: Platform, position: Int) {
+            defaultSelectedPlatform(itemView, currentItem)
             itemView.platformWord.text = currentItem._title
             itemView.platformWord.setOnClickListener {
                 selectedRowPositionWhenClicked = position
                 mOnItemClickListener?.onItemClick(currentItem)
                 notifyDataSetChanged()
             }
-            changeBackgroundColorForSelectedItem(itemView, position)
+            changeBackgroundColorForSelectedPlatform(itemView, position)
         }
     }
 
@@ -42,13 +43,20 @@ class PlatformAdapter(private val list: List<Platform>, private val whichActivit
 
     override fun getItemCount() = list.size
 
-    fun changeBackgroundColorForSelectedItem(itemView: View, position: Int){
-        if(selectedRowPositionWhenClicked == position)
+    fun defaultSelectedPlatform(itemView: View, currentItem: Platform){
+        if(selectedRowPositionWhenClicked == 0) {
             itemView.platformWord.setBackgroundResource(R.drawable.platform_rounded_corners_textview_blue)
-        else itemView.platformWord.setBackgroundResource(R.drawable.platform_rounded_corners_textview)
+            mOnItemClickListener?.onItemClick(Platform(Constant.BBC, Constant.BBC_URL))
+        }
+    }
+    fun changeBackgroundColorForSelectedPlatform(itemView: View, position: Int){
+        when (selectedRowPositionWhenClicked) {
+            position -> itemView.platformWord.setBackgroundResource(R.drawable.platform_rounded_corners_textview_blue)
+            else -> itemView.platformWord.setBackgroundResource(R.drawable.platform_rounded_corners_textview)
+        }
     }
 
     interface  OnItemClickListener {
-        fun onItemClick(index: Platform)
+        fun onItemClick(platform: Platform)
     }
 }

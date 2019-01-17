@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity
 import com.haag.mlkit.imagelabeling.test.R
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import android.support.v7.widget.GridLayoutManager
-import android.util.Log
 import android.view.View
 import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.model.Platform
@@ -50,9 +49,8 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
             platformItemAdapter = PlatformAdapter(it!!, Constant.CATEGORY)
             card_rv_platform_rv.adapter = platformItemAdapter
             platformItemAdapter.mOnItemClickListener = object : PlatformAdapter.OnItemClickListener {
-                override fun onItemClick(index: Platform) {
-                    sendPlatformFromAdapterToWeb = index
-                    Log.d("TAG", "CategoryActivity ${index._url}")
+                override fun onItemClick(platform: Platform) {
+                    sendPlatformFromAdapterToWeb = platform
                 }
             }
         })
