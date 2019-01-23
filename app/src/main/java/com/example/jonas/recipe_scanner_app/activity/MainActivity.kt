@@ -22,14 +22,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
 
-    private var itemsList: ArrayList<Any> = ArrayList()
     private lateinit var itemAdapter: ImageLabelAdapter
-
-    private var detectedItemsList: ArrayList<String> = ArrayList()
-    private lateinit var detectedItemAdapter: DetectedImageAdapter
-
-    private var recognizedTextList: ArrayList<Any> = ArrayList()
     private lateinit var textRecognitionAdapter: TextRecognitionAdapter
+    private lateinit var detectedItemAdapter: DetectedImageAdapter
+    private var detectedItemsList: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +71,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         showDoneButton()
     }
 
+    // maybe set in another class ??
+    private fun showDoneButton(){
+        when {
+            detectedItemsList.size >= 1 -> doneButton.visibility = View.VISIBLE
+            else -> doneButton.visibility = View.INVISIBLE
+        }
+    }
+
     public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
@@ -103,14 +107,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 intent.putStringArrayListExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
                 startActivityForResult(intent, 1)
             }
-        }
-    }
-
-    // maybe set in another class ??
-    private fun showDoneButton(){
-        when {
-            detectedItemsList.size >= 1 -> doneButton.visibility = View.VISIBLE
-            else -> doneButton.visibility = View.INVISIBLE
         }
     }
 

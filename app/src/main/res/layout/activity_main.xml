@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.haag.mlkit.imagelabeling.test.MainActivity">
 
-<!--
+    <!--
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
@@ -103,5 +103,29 @@
         android:text="@string/done_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/main_button_imagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/main_button_textbutton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/cameraView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_image" />
+
+    <ImageButton
+        android:id="@+id/main_button_textbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/main_button_imagebutton"
+        app:layout_constraintTop_toTopOf="@+id/main_button_imagebutton"
+        app:srcCompat="@drawable/ic_text_fields" />
 
 </android.support.constraint.ConstraintLayout>

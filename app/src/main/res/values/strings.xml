@@ -12,6 +12,8 @@
     <string name="title_scanne_items">Scanned Items</string>
     <string name="which_platform">Which platform?</string>
     <string name="button_find">Find Recipe</string>
+    <string name="text_image_scan">Image</string>
+    <string name="text_text_scan">Text</string>
 
 
 </resources>
