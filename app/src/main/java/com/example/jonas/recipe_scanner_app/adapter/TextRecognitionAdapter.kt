@@ -7,23 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.ml.vision.cloud.label.FirebaseVisionCloudLabel
 import kotlinx.android.synthetic.main.scanned_word_item.view.*
-import kotlinx.android.synthetic.main.word_item.view.*
 
-class ImageLabelAdapter(private val firebaseVisionList: List<Any>) : RecyclerView.Adapter<ImageLabelAdapter.ItemHolder>() {
+class TextRecognitionAdapter(private val textRecognitionList: List<Any>) : RecyclerView.Adapter<TextRecognitionAdapter.ItemHolder>() {
     lateinit var context: Context
 
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bindCloud(currentItem: FirebaseVisionCloudLabel) {
-            itemView.scannedWord.text = currentItem.label
+        fun bindCloud(currentItem: String) {
+            itemView.scannedWord.text = currentItem
         }
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        val currentItem = firebaseVisionList[position]
-        holder.bindCloud(currentItem as FirebaseVisionCloudLabel)
+        val currentItem = textRecognitionList[position]
+        holder.bindCloud(currentItem.toString())
             holder.itemView.setOnClickListener {
-                (context as MainActivity).addWordToDetectedItems(currentItem.label)
+                (context as MainActivity).addWordToDetectedItems(currentItem.toString())
             }
     }
 
@@ -32,5 +31,5 @@ class ImageLabelAdapter(private val firebaseVisionList: List<Any>) : RecyclerVie
             return ItemHolder(LayoutInflater.from(context).inflate(R.layout.scanned_word_item, parent, false))
     }
 
-    override fun getItemCount() = firebaseVisionList.size
+    override fun getItemCount() = textRecognitionList.size
 }

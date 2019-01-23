@@ -14,7 +14,6 @@ import android.view.View
 import android.widget.Toast
 import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
 import com.example.jonas.recipe_scanner_app.constant.Constant
-import com.example.jonas.recipe_scanner_app.interfaces.Interfaces
 import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
@@ -23,14 +22,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener{
 
-    //Scan RecyclerView
     private var itemsList: ArrayList<Any> = ArrayList()
     private lateinit var itemAdapter: ImageLabelAdapter
 
-    //Items Detected RecyclerView
     private var detectedItemsList: ArrayList<String> = ArrayList()
     private lateinit var detectedItemAdapter: DetectedImageAdapter
 
+    private var recognizedTextList: ArrayList<Any> = ArrayList()
+    private lateinit var textRecognitionAdapter: TextRecognitionAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,22 +44,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
 
     //set in other class
     private fun getLabelsFromClod(bitmap: Bitmap) {
-        val image = FirebaseVisionImage.fromBitmap(bitmap)
-        val detector = FirebaseVision.getInstance().visionCloudLabelDetector
-        itemsList.clear()
-        detector.detectInImage(image)
-                .addOnSuccessListener {
-                    // Task completed successfully
-                    scanLoading.visibility = View.INVISIBLE
-                    itemsList.addAll(it)
-                    itemAdapter = ImageLabelAdapter(itemsList, true)
-                    scannedItemRC.adapter = itemAdapter
-                }
-                .addOnFailureListener {
-                    // Task failed with an exception
-                    scanLoading.visibility = View.INVISIBLE
-                    Toast.makeText(baseContext, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
-                }
+        ViewModel.getLabelsFromClod(bitmap).observe(this, Observer {
+            scanLoading.visibility = View.INVISIBLE
+            itemAdapter = ImageLabelAdapter(it!!)
+            scannedItemRC.adapter = itemAdapter
+        })
+    }
+
+    private fun recognizeText(bitmap: Bitmap) {
+        ViewModel.getTextRecognitionFromDevice(bitmap).observe(this, Observer {
+            scanLoading.visibility = View.INVISIBLE
+            textRecognitionAdapter = TextRecognitionAdapter(it!!)
+            scannedItemRC.adapter = textRecognitionAdapter
+        })
     }
 
     fun addWordToDetectedItems(word: String){
@@ -97,7 +93,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             R.id.scanFAB -> {
                 scanLoading.visibility = View.VISIBLE
                 cameraView.captureImage { cameraKitImage ->
-                    getLabelsFromClod(cameraKitImage.bitmap)
+                    //getLabelsFromClod(cameraKitImage.bitmap)
+                    recognizeText(cameraKitImage.bitmap)
                 }
             }
 
@@ -127,3 +124,51 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         super.onPause()
     }
 }
+
+
+/* getLabelsFromClod function!
+
+        val image = FirebaseVisionImage.fromBitmap(bitmap)
+        val detector = FirebaseVision.getInstance()
+                .visionCloudLabelDetector
+        itemsList.clear()
+        detector.detectInImage(image)
+                .addOnSuccessListener {
+                    scanLoading.visibility = View.INVISIBLE
+                    itemsList.addAll(it)
+                    itemAdapter = ImageLabelAdapter(itemsList)
+                    scannedItemRC.adapter = itemAdapter
+                }
+                .addOnFailureListener {
+                    scanLoading.visibility = View.INVISIBLE
+                    Toast.makeText(baseContext, getString(R.string.something_went_wrong),
+                            Toast.LENGTH_SHORT).show()
+                }
+                */
+
+/* recognizeText function!
+        val image = FirebaseVisionImage.fromBitmap(bitmap)
+        val detector = FirebaseVision.getInstance()
+                .onDeviceTextRecognizer
+        recognizedTextList.clear()
+        itemsList.clear()
+        detector.processImage(image)
+                .addOnSuccessListener { firebaseVisionText ->
+                    for (block in firebaseVisionText.textBlocks) {
+                        for (line in block.lines) {
+                            for (element in line.elements) {
+                                scanLoading.visibility = View.INVISIBLE
+                                recognizedTextList.add(element.text)
+                            }
+                        }
+                    }
+                    itemsList.addAll(recognizedTextList)
+                    textRecognitionAdapter = TextRecognitionAdapter(itemsList)
+                    scannedItemRC.adapter = textRecognitionAdapter
+                }
+                .addOnFailureListener {
+                    scanLoading.visibility = View.INVISIBLE
+                    Toast.makeText(baseContext, getString(R.string.something_went_wrong),
+                            Toast.LENGTH_SHORT).show()
+                }
+                */

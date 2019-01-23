@@ -3,6 +3,7 @@ package com.example.jonas.recipe_scanner_app.viewmodel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.graphics.Bitmap
 import com.example.jonas.recipe_scanner_app.model.Platform
 import com.example.jonas.recipe_scanner_app.repo.Repo
 
@@ -27,6 +28,13 @@ class ViewModel: ViewModel(){
             return Repo().getPlatformList()
         }
 
+        fun getLabelsFromClod(bitmap: Bitmap): LiveData<List<Any>>{
+            return Repo().getLabelsFromClod(bitmap)
+        }
+
+        fun getTextRecognitionFromDevice(bitmap: Bitmap): LiveData<List<Any>>{
+            return Repo().getTextRecognitionFromDevice(bitmap)
+        }
     }
 
 }
