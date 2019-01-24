@@ -13,7 +13,7 @@ import com.example.jonas.recipe_scanner_app.model.Platform
 import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
 import com.haag.mlkit.imagelabeling.test.DetectedImageAdapter
 import kotlinx.android.synthetic.main.card_view_detected_items.*
-import com.haag.mlkit.imagelabeling.test.MainActivity
+import com.haag.mlkit.imagelabeling.test.ScanActivity
 import com.haag.mlkit.imagelabeling.test.PlatformAdapter
 import kotlinx.android.synthetic.main.activity_category.*
 import kotlinx.android.synthetic.main.card_layout_platform.*
@@ -39,7 +39,7 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         cardDetectedItemsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         card_rv_platform_rv.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
 
-        //Get list from MainActivity and put it in RecyclerView
+        //Get list from ScanActivity and put it in RecyclerView
         addDetectedItemsListRecyclerView(intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY))
         addPlatformsRecyclerView() //Platform recyclerview
     }
@@ -72,9 +72,9 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.category_fab_addMoreItems -> { //Send list back to MainActivity
+            R.id.category_fab_addMoreItems -> { //Send list back to ScanActivity
                 // TODO: create an helper intent class to re-use intent code this one and on onBackPressed() ??
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, ScanActivity::class.java)
                 intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
                 setResult(RESULT_OK, intent)
                 finish()
@@ -88,8 +88,8 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    override fun onBackPressed() { //Send list back to MainActivity
-        val intent = Intent(this, MainActivity::class.java)
+    override fun onBackPressed() { //Send list back to ScanActivity
+        val intent = Intent(this, ScanActivity::class.java)
         intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
         setResult(RESULT_OK, intent)
         finish()

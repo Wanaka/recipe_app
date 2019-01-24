@@ -17,13 +17,13 @@ import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), View.OnClickListener{
+class ScanActivity : AppCompatActivity(), View.OnClickListener{
 
     private lateinit var itemAdapter: ImageLabelAdapter
     private lateinit var textRecognitionAdapter: TextRecognitionAdapter
     private lateinit var detectedItemAdapter: DetectedImageAdapter
     private var detectedItemsList: ArrayList<String> = ArrayList()
-    var toggleBetweenImageAndTextRecognitionStates: Boolean = Constant.TRUE
+    private var toggleBetweenImageAndTextRecognitionStates: Boolean = Constant.TRUE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

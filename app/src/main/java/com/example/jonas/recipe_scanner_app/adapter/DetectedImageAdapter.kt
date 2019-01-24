@@ -26,7 +26,7 @@ class DetectedImageAdapter(private val list: List<String>, private val whichActi
         when(whichActivity) {
             Constant.MAIN -> {
                 holder.itemView.setOnClickListener {
-                    (context as MainActivity).deleteWordToDetectedItems(position)
+                    (context as ScanActivity).deleteWordToDetectedItems(position)
                 }
             }
             Constant.CATEGORY -> {

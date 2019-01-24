@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.ml.vision.cloud.label.FirebaseVisionCloudLabel
 import kotlinx.android.synthetic.main.scanned_word_item.view.*
-import kotlinx.android.synthetic.main.word_item.view.*
 
 class ImageLabelAdapter(private val firebaseVisionList: List<Any>) : RecyclerView.Adapter<ImageLabelAdapter.ItemHolder>() {
     lateinit var context: Context
@@ -23,7 +22,7 @@ class ImageLabelAdapter(private val firebaseVisionList: List<Any>) : RecyclerVie
         val currentItem = firebaseVisionList[position]
         holder.bindCloud(currentItem as FirebaseVisionCloudLabel)
             holder.itemView.setOnClickListener {
-                (context as MainActivity).addWordToDetectedItems(currentItem.label)
+                (context as ScanActivity).addWordToDetectedItems(currentItem.label)
             }
     }
 

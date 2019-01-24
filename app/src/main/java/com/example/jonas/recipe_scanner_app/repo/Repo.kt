@@ -8,10 +8,10 @@ import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.model.Platform
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
-import com.haag.mlkit.imagelabeling.test.MainActivity
+import com.haag.mlkit.imagelabeling.test.ScanActivity
 
 class Repo{
-    var instanceOfMainActivity: MainActivity = MainActivity()
+    var instanceOfScanActivity: ScanActivity = ScanActivity()
 
     fun getPlatformList(): LiveData<List<Platform>> {
          var mutablePlatform: MutableLiveData<List<Platform>> = MutableLiveData()
@@ -34,7 +34,7 @@ class Repo{
                     mutableLabelRecognitionList.value = it
                 }
                 .addOnFailureListener {
-                    instanceOfMainActivity.runToastErrorMessageSomethingWentWrong()
+                    instanceOfScanActivity.runToastErrorMessageSomethingWentWrong()
                 }
         return mutableLabelRecognitionList
     }
@@ -58,7 +58,7 @@ class Repo{
                 }
                 .addOnFailureListener {
                     Log.d("TAG", "FROM: noting!")
-                    instanceOfMainActivity.runToastErrorMessageSomethingWentWrong()
+                    instanceOfScanActivity.runToastErrorMessageSomethingWentWrong()
                 }
         return mutableTextRecognitionList
     }

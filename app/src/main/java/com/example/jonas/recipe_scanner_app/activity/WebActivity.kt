@@ -2,7 +2,6 @@ package com.example.jonas.recipe_scanner_app.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.helper.Helper
 import com.example.jonas.recipe_scanner_app.model.Platform
