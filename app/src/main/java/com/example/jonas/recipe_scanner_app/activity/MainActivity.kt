@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
 import com.example.jonas.recipe_scanner_app.constant.Constant
+import com.example.jonas.recipe_scanner_app.helper.Helper
 import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -111,6 +112,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 main_text_toggleScanState.text = getString(R.string.text_recognition)
             }
         }
+    }
+
+    fun runToastErrorMessageSomethingWentWrong(){
+        Helper.scanningFailedToastWarning(baseContext, getString(R.string.something_went_wrong))
     }
 
         public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
