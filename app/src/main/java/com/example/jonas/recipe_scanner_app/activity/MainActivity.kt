@@ -9,14 +9,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
 import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.viewmodel.ViewModel
-import com.google.firebase.ml.vision.FirebaseVision
-import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -26,19 +22,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var textRecognitionAdapter: TextRecognitionAdapter
     private lateinit var detectedItemAdapter: DetectedImageAdapter
     private var detectedItemsList: ArrayList<String> = ArrayList()
+    var toggleBetweenImageAndTextRecognitionStates: Boolean = Constant.TRUE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        scannedItemRC.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        scannedItemRC.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, Constant.FALSE)
         collectWordsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         scanFAB.setOnClickListener(this)
         doneButton.setOnClickListener(this)
+        main_button_imagebutton.setOnClickListener(this)
+        main_button_textbutton.setOnClickListener(this)
         scanLoading.visibility = View.INVISIBLE
         doneButton.visibility = View.INVISIBLE
+        activateLabelRecognition()
     }
 
-    //set in other class
     private fun getLabelsFromClod(bitmap: Bitmap) {
         ViewModel.getLabelsFromClod(bitmap).observe(this, Observer {
             scanLoading.visibility = View.INVISIBLE
@@ -71,7 +70,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         showDoneButton()
     }
 
-    // maybe set in another class ??
     private fun showDoneButton(){
         when {
             detectedItemsList.size >= 1 -> doneButton.visibility = View.VISIBLE
@@ -79,7 +77,43 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    private fun activateLabelRecognition(){
+        toggleBetweenImageAndTextRecognitionStates = Constant.TRUE
+        setToggleButtonsBackgroundColors(Constant.TRUE)
+        setToggleScanText(Constant.TRUE)
+    }
+
+    private fun activateTextRecognition(){
+        toggleBetweenImageAndTextRecognitionStates = Constant.FALSE
+        setToggleButtonsBackgroundColors(Constant.FALSE)
+        setToggleScanText(Constant.FALSE)
+    }
+
+    private fun setToggleButtonsBackgroundColors(toggle: Boolean){
+        when (toggle) {
+            true -> {
+                main_button_imagebutton.setBackgroundResource(R.color.colorLightBlue)
+                main_button_textbutton.setBackgroundResource(R.color.colorGrey)
+            }
+            else -> {
+                main_button_imagebutton.setBackgroundResource(R.color.colorGrey)
+                main_button_textbutton.setBackgroundResource(R.color.colorLightBlue)
+            }
+        }
+    }
+
+    private fun setToggleScanText(toggle: Boolean){
+        when (toggle) {
+            true -> {
+                main_text_toggleScanState.text = getString(R.string.image_recognition)
+            }
+            else -> {
+                main_text_toggleScanState.text = getString(R.string.text_recognition)
+            }
+        }
+    }
+
+        public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
@@ -97,8 +131,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
             R.id.scanFAB -> {
                 scanLoading.visibility = View.VISIBLE
                 cameraView.captureImage { cameraKitImage ->
-                    //getLabelsFromClod(cameraKitImage.bitmap)
-                    recognizeText(cameraKitImage.bitmap)
+                    when(toggleBetweenImageAndTextRecognitionStates){
+                       true -> getLabelsFromClod(cameraKitImage.bitmap)
+                        else -> recognizeText(cameraKitImage.bitmap)
+                    }
                 }
             }
 
@@ -107,6 +143,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
                 intent.putStringArrayListExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
                 startActivityForResult(intent, 1)
             }
+
+            R.id.main_button_imagebutton -> {activateLabelRecognition()}
+            R.id.main_button_textbutton -> {activateTextRecognition()}
         }
     }
 
@@ -120,51 +159,3 @@ class MainActivity : AppCompatActivity(), View.OnClickListener{
         super.onPause()
     }
 }
-
-
-/* getLabelsFromClod function!
-
-        val image = FirebaseVisionImage.fromBitmap(bitmap)
-        val detector = FirebaseVision.getInstance()
-                .visionCloudLabelDetector
-        itemsList.clear()
-        detector.detectInImage(image)
-                .addOnSuccessListener {
-                    scanLoading.visibility = View.INVISIBLE
-                    itemsList.addAll(it)
-                    itemAdapter = ImageLabelAdapter(itemsList)
-                    scannedItemRC.adapter = itemAdapter
-                }
-                .addOnFailureListener {
-                    scanLoading.visibility = View.INVISIBLE
-                    Toast.makeText(baseContext, getString(R.string.something_went_wrong),
-                            Toast.LENGTH_SHORT).show()
-                }
-                */
-
-/* recognizeText function!
-        val image = FirebaseVisionImage.fromBitmap(bitmap)
-        val detector = FirebaseVision.getInstance()
-                .onDeviceTextRecognizer
-        recognizedTextList.clear()
-        itemsList.clear()
-        detector.processImage(image)
-                .addOnSuccessListener { firebaseVisionText ->
-                    for (block in firebaseVisionText.textBlocks) {
-                        for (line in block.lines) {
-                            for (element in line.elements) {
-                                scanLoading.visibility = View.INVISIBLE
-                                recognizedTextList.add(element.text)
-                            }
-                        }
-                    }
-                    itemsList.addAll(recognizedTextList)
-                    textRecognitionAdapter = TextRecognitionAdapter(itemsList)
-                    scannedItemRC.adapter = textRecognitionAdapter
-                }
-                .addOnFailureListener {
-                    scanLoading.visibility = View.INVISIBLE
-                    Toast.makeText(baseContext, getString(R.string.something_went_wrong),
-                            Toast.LENGTH_SHORT).show()
-                }
-                */

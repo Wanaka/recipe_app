@@ -14,4 +14,6 @@ object Constant {
     val JAMIE_OLIVER_URL = "https://www.jamieoliver.com/search/?s="
     val TASTY ="Tasty"
     val TASTY_URL = "https://tasty.co/search?q="
+    val TRUE = true
+    val FALSE = false
 }

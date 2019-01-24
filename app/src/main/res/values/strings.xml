@@ -14,6 +14,6 @@
     <string name="button_find">Find Recipe</string>
     <string name="text_image_scan">Image</string>
     <string name="text_text_scan">Text</string>
-
-
+    <string name="image_recognition">Image Recognition</string>
+    <string name="text_recognition">Text Recognition</string>
 </resources>

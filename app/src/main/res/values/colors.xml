@@ -8,4 +8,5 @@
     <color name="colorGreyWordBorder">#6b6b6b</color>
     <color name="colorLightGreyWordBorder">#D0CFCC</color>
     <color name="colorLightBlue">#8DCAFF</color>
+    <color name="colorGrey">#dadada</color>
 </resources>
