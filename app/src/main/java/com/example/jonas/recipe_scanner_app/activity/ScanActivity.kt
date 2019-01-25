@@ -9,7 +9,9 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
+import com.example.jonas.recipe_scanner_app.activity.AddTextInputActivity
 import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
 import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.helper.Helper
@@ -34,6 +36,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         doneButton.setOnClickListener(this)
         main_button_imagebutton.setOnClickListener(this)
         main_button_textbutton.setOnClickListener(this)
+        main_background_blue.setOnClickListener(this)
         scanLoading.visibility = View.INVISIBLE
         doneButton.visibility = View.INVISIBLE
         activateLabelRecognition()
@@ -123,12 +126,24 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 val getPutExtraList = data.getStringArrayListExtra(Constant.PUT_EXTRA_KEY)
+
+                //should be in a func
                 detectedItemsList.clear()
                 for (item in getPutExtraList) detectedItemsList.add(item)
                 detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.MAIN)
                 collectWordsRV.adapter = detectedItemAdapter
             }
         }
+            if (requestCode == 2) {
+                if (resultCode == Activity.RESULT_OK) {
+                    if(data.getStringExtra(Constant.PUT_EXTRA_KEY) != null){
+                        val getNewItemFromAddTextInputActivity = data.getStringExtra(Constant.PUT_EXTRA_KEY)
+                        detectedItemsList.add(getNewItemFromAddTextInputActivity)
+                        detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.MAIN)
+                        collectWordsRV.adapter = detectedItemAdapter
+                    }
+                }
+            }
     }
 
     override fun onClick(v: View?) {
@@ -151,6 +166,11 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
 
             R.id.main_button_imagebutton -> {activateLabelRecognition()}
             R.id.main_button_textbutton -> {activateTextRecognition()}
+
+            R.id.main_background_blue -> {
+                val intent = Intent(this, AddTextInputActivity::class.java)
+                startActivityForResult(intent, 2)
+            }
         }
     }
 

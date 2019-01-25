@@ -24,11 +24,8 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.firstactivity_circle_startScanning -> {
                 val intent = Intent(this, ScanActivity::class.java)
-                //intent.putStringArrayListExtra(Constant.PUT_EXTRA_KEY, "")
-                startActivityForResult(intent, 1)
+                startActivityForResult(intent, 0)
             }
         }
     }
-
-    //override fun onBackPressed() {}
 }

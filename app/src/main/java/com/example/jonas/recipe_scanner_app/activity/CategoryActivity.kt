@@ -73,7 +73,6 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.category_fab_addMoreItems -> { //Send list back to ScanActivity
-                // TODO: create an helper intent class to re-use intent code this one and on onBackPressed() ??
                 val intent = Intent(this, ScanActivity::class.java)
                 intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
                 setResult(RESULT_OK, intent)
