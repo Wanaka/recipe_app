@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">recipe_scanner_app</string>
     <string name="items_detected">Items detected</string>
-    <string name="button_done">Done</string>
+    <string name="button_find_recipes">Find Recipes ></string>
     <string name="close_x">x</string>
     <string name="title_activity_test">testActivity</string>
     <string name="scan_loading_text">Scanning item...</string>
@@ -27,4 +27,6 @@
     <string name="hint_add_fruits_veggies">Add a fruit, veggie or meat!</string>
     <string name="first_text_scanFruits">Scan fruits, veggies or textlabels</string>
     <string name="first_text_startScan"><![CDATA[Start Scanning >]]></string>
+    <string name="scan_text_imageScanning">Image Scanning</string>
+    <string name="scan_text_textScanning">Text Scanning</string>
 </resources>

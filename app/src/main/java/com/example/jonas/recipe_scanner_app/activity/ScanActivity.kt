@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import com.example.jonas.recipe_scanner_app.activity.AddTextInputActivity
 import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
@@ -33,12 +32,12 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         scannedItemRC.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, Constant.FALSE)
         collectWordsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         scanFAB.setOnClickListener(this)
-        doneButton.setOnClickListener(this)
-        main_button_imagebutton.setOnClickListener(this)
-        main_button_textbutton.setOnClickListener(this)
+        scan_button_findRecipes.setOnClickListener(this)
+        //main_button_imagebutton.setOnClickListener(this)
+        //main_button_textbutton.setOnClickListener(this)
         main_background_blue.setOnClickListener(this)
         scanLoading.visibility = View.INVISIBLE
-        doneButton.visibility = View.INVISIBLE
+        scan_button_findRecipes.visibility = View.INVISIBLE
         activateLabelRecognition()
     }
 
@@ -76,8 +75,8 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
 
     private fun showDoneButton(){
         when {
-            detectedItemsList.size >= 1 -> doneButton.visibility = View.VISIBLE
-            else -> doneButton.visibility = View.INVISIBLE
+            detectedItemsList.size >= 1 -> scan_button_findRecipes.visibility = View.VISIBLE
+            else -> scan_button_findRecipes.visibility = View.INVISIBLE
         }
     }
 
@@ -96,12 +95,12 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
     private fun setToggleButtonsBackgroundColors(toggle: Boolean){
         when (toggle) {
             true -> {
-                main_button_imagebutton.setBackgroundResource(R.color.colorLightBlue)
-                main_button_textbutton.setBackgroundResource(R.color.colorGrey)
+                //main_button_imagebutton.setBackgroundResource(R.color.colorLightBlue)
+                //main_button_textbutton.setBackgroundResource(R.color.colorGrey)
             }
             else -> {
-                main_button_imagebutton.setBackgroundResource(R.color.colorGrey)
-                main_button_textbutton.setBackgroundResource(R.color.colorLightBlue)
+                //main_button_imagebutton.setBackgroundResource(R.color.colorGrey)
+                //main_button_textbutton.setBackgroundResource(R.color.colorLightBlue)
             }
         }
     }
@@ -109,10 +108,10 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
     private fun setToggleScanText(toggle: Boolean){
         when (toggle) {
             true -> {
-                main_text_toggleScanState.text = getString(R.string.image_recognition)
+                //main_text_toggleScanState.text = getString(R.string.image_recognition)
             }
             else -> {
-                main_text_toggleScanState.text = getString(R.string.text_recognition)
+                //main_text_toggleScanState.text = getString(R.string.text_recognition)
             }
         }
     }
@@ -159,14 +158,14 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
                 }
             }
 
-            R.id.doneButton -> {
+            R.id.scan_button_findRecipes -> {
                 val intent = Intent(this, CategoryActivity::class.java)
                 intent.putStringArrayListExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
                 startActivityForResult(intent, 1)
             }
 
-            R.id.main_button_imagebutton -> {activateLabelRecognition()}
-            R.id.main_button_textbutton -> {activateTextRecognition()}
+            //R.id.main_button_imagebutton -> {activateLabelRecognition()}
+            //R.id.main_button_textbutton -> {activateTextRecognition()}
 
             R.id.main_background_blue -> {
                 val intent = Intent(this, AddTextInputActivity::class.java)

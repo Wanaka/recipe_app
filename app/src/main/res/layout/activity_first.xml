@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/front_img"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@color/colorBlack" />
+        app:srcCompat="@color/colorBlackOpacity" />
 
     <ImageView
         android:id="@+id/firstactivity_circle_startScanning"

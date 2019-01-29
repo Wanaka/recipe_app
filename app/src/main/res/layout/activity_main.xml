@@ -27,7 +27,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </com.wonderkiln.camerakit.CameraView>
 
@@ -93,54 +94,19 @@
         app:layout_constraintTop_toTopOf="@+id/scanFAB" />
 
     <Button
-        android:id="@+id/doneButton"
+        android:id="@+id/scan_button_findRecipes"
         style="@style/DoneButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/done_button"
+        android:background="@drawable/black_opacity_background"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="@string/button_find_recipes"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/main_button_imagebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:padding="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/main_button_textbutton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@+id/cameraView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_image" />
-
-    <ImageButton
-        android:id="@+id/main_button_textbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:padding="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/main_button_imagebutton"
-        app:layout_constraintTop_toTopOf="@+id/main_button_imagebutton"
-        app:srcCompat="@drawable/ic_text_fields" />
-
-    <TextView
-        android:id="@+id/main_text_toggleScanState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="TextView"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/main_button_textbutton"
-        app:layout_constraintStart_toStartOf="@+id/main_button_imagebutton"
-        app:layout_constraintTop_toBottomOf="@+id/main_button_imagebutton" />
 
     <ImageView
         android:id="@+id/main_background_blue"
@@ -161,5 +127,50 @@
         app:layout_constraintTop_toTopOf="@+id/collectWordsRV"
         app:layout_constraintVertical_bias="0.523"
         app:srcCompat="@drawable/ic_add_text" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/black_opacity_background"
+        android:padding="5dp"
+        android:text="scanmode"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/scan_container_imageText"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <include
+        android:id="@+id/scan_button_imageScanning"
+        layout="@layout/image_scanning_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/scan_container_imageText"
+        app:layout_constraintStart_toStartOf="@+id/scan_container_imageText"
+        app:layout_constraintTop_toTopOf="@+id/scan_container_imageText" />
+
+    <include
+        android:id="@+id/scan_button_textScanning"
+        layout="@layout/text_scanning_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/scan_container_imageText"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toEndOf="@+id/scan_button_imageScanning"
+        app:layout_constraintTop_toTopOf="@+id/scan_button_imageScanning" />
 
 </android.support.constraint.ConstraintLayout>
