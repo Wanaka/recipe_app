@@ -141,6 +141,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
                         detectedItemsList.add(getNewItemFromAddTextInputActivity)
                         detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.MAIN)
                         collectWordsRV.adapter = detectedItemAdapter
+                        showDoneButton()
                     }
                 }
             }

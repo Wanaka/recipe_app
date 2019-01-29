@@ -9,7 +9,7 @@
     <string name="scan_button_text">Scan</string>
     <string name="done_button">Done ></string>
     <string name="category_title">Chose Category</string>
-    <string name="scan_app_title">Scan App</string>
+    <string name="scan_app_title">Fooder</string>
     <string name="title_scanne_items">Scanned Items</string>
     <string name="which_platform">Which platform?</string>
     <string name="button_find">Find Recipe</string>
@@ -17,7 +17,7 @@
     <string name="text_text_scan">Text</string>
     <string name="image_recognition">Image Recognition</string>
     <string name="text_recognition">Text Recognition</string>
-    <string name="first_desc_scanningText">Find great recipes based on what you have in your fridge Scan fruits, veggies or text labels</string>
+    <string name="first_desc_scanningText">Find great recipes based on what you have in your fridge</string>
     <string name="first_arrow_startScanning"><![CDATA[Start Scanning >]]></string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -25,4 +25,6 @@
     <string name="button_save">Save</string>
     <string name="title_add_new_text_item">Add a new item</string>
     <string name="hint_add_fruits_veggies">Add a fruit, veggie or meat!</string>
+    <string name="first_text_scanFruits">Scan fruits, veggies or textlabels</string>
+    <string name="first_text_startScan"><![CDATA[Start Scanning >]]></string>
 </resources>
