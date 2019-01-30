@@ -51,6 +51,8 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
                     setRecyclerViewContentVisible()
                     itemAdapter = ImageLabelAdapter(it!!)
                     scannedItemRC.adapter = itemAdapter
+                } else {
+                    Helper.scanningFailedToastWarning(baseContext, getString(R.string.toast_noImageWasFound))
                 }
             }
         })
@@ -65,6 +67,8 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
                     setRecyclerViewContentVisible()
                     textRecognitionAdapter = TextRecognitionAdapter(it!!)
                     scannedItemRC.adapter = textRecognitionAdapter
+                } else {
+                Helper.scanningFailedToastWarning(baseContext, getString(R.string.toast_noTextWasFound))
                 }
             }
         })
@@ -139,10 +143,6 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
-    fun runToastErrorMessageSomethingWentWrong(){
-        Helper.scanningFailedToastWarning(baseContext, getString(R.string.something_went_wrong))
-    }
-
         public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
@@ -175,7 +175,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
                 scanLoading.visibility = View.VISIBLE
                 cameraView.captureImage { cameraKitImage ->
                     when(toggleBetweenImageAndTextRecognitionStates){
-                       true -> getLabelsFromClod(cameraKitImage.bitmap)
+                        true -> getLabelsFromClod(cameraKitImage.bitmap)
                         else -> recognizeText(cameraKitImage.bitmap)
                     }
                 }
@@ -195,6 +195,10 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
                 startActivityForResult(intent, 2)
             }
         }
+    }
+
+    fun runToastErrorMessageSomethingWentWrong(){
+        Helper.scanningFailedToastWarning(baseContext, getString(R.string.something_went_wrong))
     }
 
     override fun onResume() {

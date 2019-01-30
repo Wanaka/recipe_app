@@ -11,7 +11,7 @@
     <string name="category_title">Chose Category</string>
     <string name="scan_app_title">Fooder</string>
     <string name="title_scanne_items">Scanned Items</string>
-    <string name="which_platform">Which platform?</string>
+    <string name="which_platform">Where do you want to find a great recipe?</string>
     <string name="button_find">Find Recipe</string>
     <string name="text_image_scan">Image</string>
     <string name="text_text_scan">Text</string>
@@ -31,4 +31,8 @@
     <string name="scan_text_textScanning">Text Scanning</string>
     <string name="text_selectFood">Click to select the accurate food</string>
     <string name="button_text_addFood">Add Food</string>
+    <string name="toast_noImageWasFound">No image was found</string>
+    <string name="toast_noTextWasFound">No text was found</string>
+
+
 </resources>

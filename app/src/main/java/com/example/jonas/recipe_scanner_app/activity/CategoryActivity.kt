@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import com.haag.mlkit.imagelabeling.test.R
 import kotlinx.android.synthetic.main.custom_toolbar.*
 import android.support.v7.widget.GridLayoutManager
+import android.view.MenuItem
 import android.view.View
 import com.example.jonas.recipe_scanner_app.constant.Constant
 import com.example.jonas.recipe_scanner_app.model.Platform
@@ -33,7 +34,8 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
         setSupportActionBar(custom_toolbar)
-        supportActionBar?.setTitle(R.string.category_title)
+        supportActionBar!!.setTitle(R.string.category_title)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         category_fab_addMoreItems.setOnClickListener(this)
         category_button_findRecipe.setOnClickListener(this)
         cardDetectedItemsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
@@ -93,5 +95,18 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         setResult(RESULT_OK, intent)
         finish()
         super.onBackPressed()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            android.R.id.home -> {
+                // app icon in action bar clicked; go home
+                val intent = Intent(this, ScanActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return true
     }
 }

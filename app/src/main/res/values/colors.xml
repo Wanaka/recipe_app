@@ -14,4 +14,5 @@
     <color name="colorGreen">#42af2c</color>
     <color name="colorGreenOpacity">#e142af2c</color>
     <color name="colorOrangeCarrot">#ED9121</color>
+    <color name="colorTransparent">#00ffffff</color>
 </resources>

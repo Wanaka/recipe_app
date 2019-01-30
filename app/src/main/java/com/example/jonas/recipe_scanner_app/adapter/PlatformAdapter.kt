@@ -45,13 +45,13 @@ class PlatformAdapter(private val list: List<Platform>, private val whichActivit
 
     fun defaultSelectedPlatform(itemView: View, currentItem: Platform){
         if(selectedRowPositionWhenClicked == 0) {
-            itemView.platformWord.setBackgroundResource(R.drawable.platform_rounded_corners_textview_blue)
+            itemView.platformWord.setBackgroundResource(R.drawable.platform_rounded_corners_textview_colored)
             mOnItemClickListener?.onItemClick(Platform(Constant.BBC, Constant.BBC_URL))
         }
     }
     fun changeBackgroundColorForSelectedPlatform(itemView: View, position: Int){
         when (selectedRowPositionWhenClicked) {
-            position -> itemView.platformWord.setBackgroundResource(R.drawable.platform_rounded_corners_textview_blue)
+            position -> itemView.platformWord.setBackgroundResource(R.drawable.platform_rounded_corners_textview_colored)
             else -> itemView.platformWord.setBackgroundResource(R.drawable.platform_rounded_corners_textview)
         }
     }

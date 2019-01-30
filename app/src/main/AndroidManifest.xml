@@ -16,12 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ScanActivity" />
-        <activity android:name="com.example.jonas.recipe_scanner_app.activity.CategoryActivity" />
+
+        <activity android:name="com.example.jonas.recipe_scanner_app.activity.CategoryActivity"
+            android:parentActivityName=".ScanActivity"></activity>
+
         <activity android:name="com.example.jonas.recipe_scanner_app.activity.WebActivity" />
+
         <activity android:name="com.example.jonas.recipe_scanner_app.activity.FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

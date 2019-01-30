@@ -6,45 +6,57 @@
     android:layout_height="match_parent"
     tools:context="com.example.jonas.recipe_scanner_app.activity.AddTextInputActivity">
 
+    <ImageView
+        android:id="@+id/addtextinput_background"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@color/colorGreenOpacity" />
+
     <EditText
-        android:id="@+id/addTextInput_input_addNewtext"
+        android:id="@+id/addtextinput_input_food"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="80dp"
+        android:backgroundTint="@color/colorWhite"
         android:ems="10"
         android:hint="@string/hint_add_fruits_veggies"
         android:inputType="textPersonName"
+        android:textColor="@color/colorWhite"
+        android:textColorHighlight="@color/colorWhite"
+        android:textColorHint="@color/colorWhite"
+        android:textColorLink="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/addtextinput_text_title" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/addtextinput_text_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:text="@string/title_add_new_text_item"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addTextInput_button_close" />
 
     <Button
         android:id="@+id/addTextInput_button_save"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorLightBlue"
+        android:background="@color/colorOrangeCarrot"
         android:text="@string/button_save"
         android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addTextInput_input_addNewtext" />
+        app:layout_constraintTop_toBottomOf="@+id/addtextinput_background" />
 
     <Button
         android:id="@+id/addTextInput_button_close"
@@ -52,7 +64,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:background="@color/colorTransparent"
         android:text="@string/close_x"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
