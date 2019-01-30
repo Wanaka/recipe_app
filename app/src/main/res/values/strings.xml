@@ -15,8 +15,8 @@
     <string name="button_find">Find Recipe</string>
     <string name="text_image_scan">Image</string>
     <string name="text_text_scan">Text</string>
-    <string name="image_recognition">Image Recognition</string>
-    <string name="text_recognition">Text Recognition</string>
+    <string name="image_recognition">Image Scanning Mode</string>
+    <string name="text_recognition">Text Scanning Mode</string>
     <string name="first_desc_scanningText">Find great recipes based on what you have in your fridge</string>
     <string name="first_arrow_startScanning"><![CDATA[Start Scanning >]]></string>
 
@@ -29,4 +29,6 @@
     <string name="first_text_startScan"><![CDATA[Start Scanning >]]></string>
     <string name="scan_text_imageScanning">Image Scanning</string>
     <string name="scan_text_textScanning">Text Scanning</string>
+    <string name="text_selectFood">Click to select the accurate food</string>
+    <string name="button_text_addFood">Add Food</string>
 </resources>

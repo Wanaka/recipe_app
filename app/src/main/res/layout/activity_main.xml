@@ -25,7 +25,7 @@
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toTopOf="@+id/collectWordsRV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -73,7 +73,7 @@
         android:layout_marginBottom="24dp"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/colorLightBlue"
+        app:backgroundTint="@color/colorOrangeCarrot"
         app:layout_constraintBottom_toTopOf="@+id/collectWordsRV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -115,21 +115,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/collectWordsRV"
-        app:srcCompat="@color/colorLightBlue" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@color/colorGreen" />
 
     <ImageView
         android:id="@+id/main_icon_addText"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/main_background_blue"
         app:layout_constraintStart_toStartOf="@+id/main_background_blue"
-        app:layout_constraintTop_toTopOf="@+id/collectWordsRV"
-        app:layout_constraintVertical_bias="0.523"
+        app:layout_constraintTop_toBottomOf="@+id/button_text_addFood"
         app:srcCompat="@drawable/ic_add_text" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/scan_text_modeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -139,6 +139,7 @@
         android:padding="5dp"
         android:text="scanmode"
         android:textColor="@color/colorWhite"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -150,7 +151,7 @@
         android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/scan_text_modeText" />
 
     <include
         android:id="@+id/scan_button_imageScanning"
@@ -172,5 +173,32 @@
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toEndOf="@+id/scan_button_imageScanning"
         app:layout_constraintTop_toTopOf="@+id/scan_button_imageScanning" />
+
+    <TextView
+        android:id="@+id/scan_text_clickToSelectFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/black_opacity_background"
+        android:padding="5dp"
+        android:text="@string/text_selectFood"
+        android:textColor="@color/colorWhite"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/scannedItemRC"
+        app:layout_constraintEnd_toEndOf="@+id/scannedItemRC"
+        app:layout_constraintStart_toStartOf="@+id/scannedItemRC" />
+
+    <TextView
+        android:id="@+id/button_text_addFood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/button_text_addFood"
+        android:textColor="@color/colorWhite"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/main_background_blue"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="@+id/main_background_blue"
+        app:layout_constraintTop_toTopOf="@+id/main_background_blue" />
 
 </android.support.constraint.ConstraintLayout>

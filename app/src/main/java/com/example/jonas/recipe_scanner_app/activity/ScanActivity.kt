@@ -33,28 +33,51 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         collectWordsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         scanFAB.setOnClickListener(this)
         scan_button_findRecipes.setOnClickListener(this)
-        //main_button_imagebutton.setOnClickListener(this)
-        //main_button_textbutton.setOnClickListener(this)
+        scan_button_imageScanning.setOnClickListener(this)
+        scan_button_textScanning.setOnClickListener(this)
         main_background_blue.setOnClickListener(this)
+        scan_text_clickToSelectFood.visibility = View.INVISIBLE
         scanLoading.visibility = View.INVISIBLE
         scan_button_findRecipes.visibility = View.INVISIBLE
         activateLabelRecognition()
     }
 
     private fun getLabelsFromClod(bitmap: Bitmap) {
+        setRecyclerViewInvisibleWhenLoadingNewContent()
         ViewModel.getLabelsFromClod(bitmap).observe(this, Observer {
             scanLoading.visibility = View.INVISIBLE
-            itemAdapter = ImageLabelAdapter(it!!)
-            scannedItemRC.adapter = itemAdapter
+            if (it != null) {
+                if (!it.isEmpty()!!) {
+                    setRecyclerViewContentVisible()
+                    itemAdapter = ImageLabelAdapter(it!!)
+                    scannedItemRC.adapter = itemAdapter
+                }
+            }
         })
     }
 
     private fun recognizeText(bitmap: Bitmap) {
+        setRecyclerViewInvisibleWhenLoadingNewContent()
         ViewModel.getTextRecognitionFromDevice(bitmap).observe(this, Observer {
             scanLoading.visibility = View.INVISIBLE
-            textRecognitionAdapter = TextRecognitionAdapter(it!!)
-            scannedItemRC.adapter = textRecognitionAdapter
+            if (it != null) {
+                if(!it.isEmpty()!!) {
+                    setRecyclerViewContentVisible()
+                    textRecognitionAdapter = TextRecognitionAdapter(it!!)
+                    scannedItemRC.adapter = textRecognitionAdapter
+                }
+            }
         })
+    }
+
+    fun setRecyclerViewContentVisible(){
+        scannedItemRC.visibility = View.VISIBLE
+        scan_text_clickToSelectFood.visibility = View.VISIBLE
+    }
+
+    fun setRecyclerViewInvisibleWhenLoadingNewContent(){
+        scannedItemRC.visibility = View.INVISIBLE
+        scan_text_clickToSelectFood.visibility = View.INVISIBLE
     }
 
     fun addWordToDetectedItems(word: String){
@@ -95,12 +118,12 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
     private fun setToggleButtonsBackgroundColors(toggle: Boolean){
         when (toggle) {
             true -> {
-                //main_button_imagebutton.setBackgroundResource(R.color.colorLightBlue)
-                //main_button_textbutton.setBackgroundResource(R.color.colorGrey)
+                //scan_button_imageScanning.setBackgroundResource(R.color.colorGreen)
+                //scan_button_textScanning.setBackgroundResource(R.color.colorGrey)
             }
             else -> {
-                //main_button_imagebutton.setBackgroundResource(R.color.colorGrey)
-                //main_button_textbutton.setBackgroundResource(R.color.colorLightBlue)
+                //scan_button_imageScanning.setBackgroundResource(R.color.colorGrey)
+                //scan_button_textScanning.setBackgroundResource(R.color.colorGreen)
             }
         }
     }
@@ -108,10 +131,10 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
     private fun setToggleScanText(toggle: Boolean){
         when (toggle) {
             true -> {
-                //main_text_toggleScanState.text = getString(R.string.image_recognition)
+                scan_text_modeText.text = getString(R.string.image_recognition)
             }
             else -> {
-                //main_text_toggleScanState.text = getString(R.string.text_recognition)
+                scan_text_modeText.text = getString(R.string.text_recognition)
             }
         }
     }
@@ -164,8 +187,8 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
                 startActivityForResult(intent, 1)
             }
 
-            //R.id.main_button_imagebutton -> {activateLabelRecognition()}
-            //R.id.main_button_textbutton -> {activateTextRecognition()}
+            R.id.scan_button_imageScanning -> {activateLabelRecognition()}
+            R.id.scan_button_textScanning -> {activateTextRecognition()}
 
             R.id.main_background_blue -> {
                 val intent = Intent(this, AddTextInputActivity::class.java)
