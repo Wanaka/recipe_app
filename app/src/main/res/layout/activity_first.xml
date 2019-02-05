@@ -83,28 +83,18 @@
         app:layout_constraintStart_toStartOf="@+id/firstactivity_circle_startScanning"
         app:layout_constraintTop_toBottomOf="@+id/first_text_desc" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/first_fab_startScanning"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="32dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:backgroundTint="@color/colorOrangeCarrot"
-        app:layout_constraintBottom_toBottomOf="@+id/front_img_shadow"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/first_text_scan"
+    <Button
+        android:id="@+id/first_button_startScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/first_button_start_scan_bg"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:text="@string/first_text_startScan"
         android:textColor="@color/colorWhite"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/first_fab_startScanning"
-        app:layout_constraintEnd_toEndOf="@+id/first_fab_startScanning"
-        app:layout_constraintStart_toStartOf="@+id/first_fab_startScanning"
-        app:layout_constraintTop_toTopOf="@+id/first_fab_startScanning" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

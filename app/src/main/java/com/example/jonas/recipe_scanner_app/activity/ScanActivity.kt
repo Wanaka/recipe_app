@@ -24,7 +24,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
     private lateinit var textRecognitionAdapter: TextRecognitionAdapter
     private lateinit var detectedItemAdapter: DetectedImageAdapter
     private var detectedItemsList: ArrayList<String> = ArrayList()
-    private var toggleBetweenImageAndTextRecognitionStates: Boolean = Constant.TRUE
+    private var toggleBetweenImageAndTextRecognitionStates: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +35,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         scan_button_findRecipes.setOnClickListener(this)
         scan_button_imageScanning.setOnClickListener(this)
         scan_button_textScanning.setOnClickListener(this)
-        main_background_blue.setOnClickListener(this)
+        main_background_green.setOnClickListener(this)
         scan_text_clickToSelectFood.visibility = View.INVISIBLE
         scanLoading.visibility = View.INVISIBLE
         scan_button_findRecipes.visibility = View.INVISIBLE
@@ -108,26 +108,26 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun activateLabelRecognition(){
-        toggleBetweenImageAndTextRecognitionStates = Constant.TRUE
-        setToggleButtonsBackgroundColors(Constant.TRUE)
-        setToggleScanText(Constant.TRUE)
+        toggleBetweenImageAndTextRecognitionStates = true
+        setToggleButtonsBackgroundColors(true)
+        setToggleScanText(true)
     }
 
     private fun activateTextRecognition(){
-        toggleBetweenImageAndTextRecognitionStates = Constant.FALSE
-        setToggleButtonsBackgroundColors(Constant.FALSE)
-        setToggleScanText(Constant.FALSE)
+        toggleBetweenImageAndTextRecognitionStates = false
+        setToggleButtonsBackgroundColors(false)
+        setToggleScanText(false)
     }
 
     private fun setToggleButtonsBackgroundColors(toggle: Boolean){
         when (toggle) {
             true -> {
-                //scan_button_imageScanning.setBackgroundResource(R.color.colorGreen)
-                //scan_button_textScanning.setBackgroundResource(R.color.colorGrey)
+                scan_button_imageScanning.setBackgroundResource(R.drawable.green_image_text_toggle_background)
+                scan_button_textScanning.setBackgroundResource(R.drawable.black_opacity_background)
             }
             else -> {
-                //scan_button_imageScanning.setBackgroundResource(R.color.colorGrey)
-                //scan_button_textScanning.setBackgroundResource(R.color.colorGreen)
+                scan_button_imageScanning.setBackgroundResource(R.drawable.black_opacity_background)
+                scan_button_textScanning.setBackgroundResource(R.drawable.green_image_text_toggle_background)
             }
         }
     }
@@ -188,9 +188,10 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
             }
 
             R.id.scan_button_imageScanning -> {activateLabelRecognition()}
+
             R.id.scan_button_textScanning -> {activateTextRecognition()}
 
-            R.id.main_background_blue -> {
+            R.id.main_background_green -> {
                 val intent = Intent(this, AddTextInputActivity::class.java)
                 startActivityForResult(intent, 2)
             }

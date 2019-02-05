@@ -100,10 +100,10 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             android.R.id.home -> {
-                // app icon in action bar clicked; go home
                 val intent = Intent(this, ScanActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(intent)
+                intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
+                setResult(RESULT_OK, intent)
+                finish()
             }
             else -> return super.onOptionsItemSelected(item)
         }

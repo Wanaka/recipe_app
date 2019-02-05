@@ -17,12 +17,12 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_first)
         setSupportActionBar(custom_toolbar)
         supportActionBar?.setTitle(R.string.scan_app_title)
-        first_fab_startScanning.setOnClickListener(this)
+        first_button_startScan.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.first_fab_startScanning -> {
+            R.id.first_button_startScan -> {
                 val intent = Intent(this, ScanActivity::class.java)
                 startActivityForResult(intent, 0)
             }

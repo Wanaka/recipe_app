@@ -39,7 +39,7 @@
         android:clipToPadding="false"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/main_background_blue"
+        app:layout_constraintEnd_toStartOf="@+id/main_background_green"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.RecyclerView
@@ -108,26 +108,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/main_background_blue"
-        android:layout_width="70dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/collectWordsRV"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@color/colorGreen" />
-
-    <ImageView
-        android:id="@+id/main_icon_addText"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/main_background_blue"
-        app:layout_constraintStart_toStartOf="@+id/main_background_blue"
-        app:layout_constraintTop_toBottomOf="@+id/button_text_addFood"
-        app:srcCompat="@drawable/ic_add_text" />
-
     <TextView
         android:id="@+id/scan_text_modeText"
         android:layout_width="wrap_content"
@@ -153,6 +133,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scan_text_modeText" />
 
+    <ImageView
+        android:id="@+id/scan_image_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scan_button_imageScanning"
+        app:layout_constraintEnd_toEndOf="@+id/scan_button_imageScanning"
+        app:layout_constraintStart_toStartOf="@+id/scan_container_imageText"
+        app:layout_constraintTop_toTopOf="@+id/scan_button_imageScanning"
+        app:srcCompat="@drawable/black_opacity_background" />
+
     <include
         android:id="@+id/scan_button_imageScanning"
         layout="@layout/image_scanning_layout"
@@ -161,6 +151,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/scan_container_imageText"
         app:layout_constraintStart_toStartOf="@+id/scan_container_imageText"
         app:layout_constraintTop_toTopOf="@+id/scan_container_imageText" />
+
+    <ImageView
+        android:id="@+id/scan_text_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scan_button_textScanning"
+        app:layout_constraintEnd_toEndOf="@+id/scan_container_imageText"
+        app:layout_constraintStart_toStartOf="@+id/scan_button_textScanning"
+        app:layout_constraintTop_toTopOf="@+id/scan_button_textScanning"
+        app:srcCompat="@drawable/black_opacity_background" />
 
     <include
         android:id="@+id/scan_button_textScanning"
@@ -187,6 +187,26 @@
         app:layout_constraintEnd_toEndOf="@+id/scannedItemRC"
         app:layout_constraintStart_toStartOf="@+id/scannedItemRC" />
 
+    <ImageView
+        android:id="@+id/main_background_green"
+        android:layout_width="70dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/collectWordsRV"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@color/colorGreen" />
+
+    <ImageView
+        android:id="@+id/main_icon_addText"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/main_background_green"
+        app:layout_constraintStart_toStartOf="@+id/main_background_green"
+        app:layout_constraintTop_toBottomOf="@+id/button_text_addFood"
+        app:srcCompat="@drawable/ic_add_text" />
+
     <TextView
         android:id="@+id/button_text_addFood"
         android:layout_width="wrap_content"
@@ -196,9 +216,9 @@
         android:text="@string/button_text_addFood"
         android:textColor="@color/colorWhite"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/main_background_blue"
+        app:layout_constraintEnd_toEndOf="@+id/main_background_green"
         app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toStartOf="@+id/main_background_blue"
-        app:layout_constraintTop_toTopOf="@+id/main_background_blue" />
+        app:layout_constraintStart_toStartOf="@+id/main_background_green"
+        app:layout_constraintTop_toTopOf="@+id/main_background_green" />
 
 </android.support.constraint.ConstraintLayout>
