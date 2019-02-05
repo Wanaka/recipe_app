@@ -126,22 +126,12 @@
 
     <ImageView
         android:id="@+id/scan_container_imageText"
-        android:layout_width="200dp"
+        android:layout_width="210dp"
         android:layout_height="30dp"
         android:layout_marginTop="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scan_text_modeText" />
-
-    <ImageView
-        android:id="@+id/scan_image_bg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/scan_button_imageScanning"
-        app:layout_constraintEnd_toEndOf="@+id/scan_button_imageScanning"
-        app:layout_constraintStart_toStartOf="@+id/scan_container_imageText"
-        app:layout_constraintTop_toTopOf="@+id/scan_button_imageScanning"
-        app:srcCompat="@drawable/black_opacity_background" />
 
     <include
         android:id="@+id/scan_button_imageScanning"
@@ -152,23 +142,12 @@
         app:layout_constraintStart_toStartOf="@+id/scan_container_imageText"
         app:layout_constraintTop_toTopOf="@+id/scan_container_imageText" />
 
-    <ImageView
-        android:id="@+id/scan_text_bg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/scan_button_textScanning"
-        app:layout_constraintEnd_toEndOf="@+id/scan_container_imageText"
-        app:layout_constraintStart_toStartOf="@+id/scan_button_textScanning"
-        app:layout_constraintTop_toTopOf="@+id/scan_button_textScanning"
-        app:srcCompat="@drawable/black_opacity_background" />
-
     <include
         android:id="@+id/scan_button_textScanning"
         layout="@layout/text_scanning_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="@+id/scan_container_imageText"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toEndOf="@+id/scan_button_imageScanning"

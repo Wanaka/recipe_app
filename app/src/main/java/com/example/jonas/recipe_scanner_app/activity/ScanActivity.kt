@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.View
 import com.example.jonas.recipe_scanner_app.activity.AddTextInputActivity
 import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
@@ -43,13 +44,12 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun getLabelsFromClod(bitmap: Bitmap) {
-        setRecyclerViewInvisibleWhenLoadingNewContent()
         ViewModel.getLabelsFromClod(bitmap).observe(this, Observer {
             scanLoading.visibility = View.INVISIBLE
             if (it != null) {
-                if (!it.isEmpty()!!) {
+                if (!it.isEmpty()) {
                     setRecyclerViewContentVisible()
-                    itemAdapter = ImageLabelAdapter(it!!)
+                    itemAdapter = ImageLabelAdapter(it)
                     scannedItemRC.adapter = itemAdapter
                 } else {
                     Helper.scanningFailedToastWarning(baseContext, getString(R.string.toast_noImageWasFound))
@@ -59,13 +59,12 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     private fun recognizeText(bitmap: Bitmap) {
-        setRecyclerViewInvisibleWhenLoadingNewContent()
         ViewModel.getTextRecognitionFromDevice(bitmap).observe(this, Observer {
             scanLoading.visibility = View.INVISIBLE
             if (it != null) {
-                if(!it.isEmpty()!!) {
+                if(!it.isEmpty()) {
                     setRecyclerViewContentVisible()
-                    textRecognitionAdapter = TextRecognitionAdapter(it!!)
+                    textRecognitionAdapter = TextRecognitionAdapter(it)
                     scannedItemRC.adapter = textRecognitionAdapter
                 } else {
                 Helper.scanningFailedToastWarning(baseContext, getString(R.string.toast_noTextWasFound))
@@ -173,6 +172,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         when (v?.id) {
             R.id.scanFAB -> {
                 scanLoading.visibility = View.VISIBLE
+                setRecyclerViewInvisibleWhenLoadingNewContent()
                 cameraView.captureImage { cameraKitImage ->
                     when(toggleBetweenImageAndTextRecognitionStates){
                         true -> getLabelsFromClod(cameraKitImage.bitmap)

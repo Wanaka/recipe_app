@@ -57,7 +57,6 @@ class Repo{
                     mutableTextRecognitionList.value = recognizedTextList
                 }
                 .addOnFailureListener {
-                    Log.d("TAG", "FROM: noting!")
                     instanceOfScanActivity.runToastErrorMessageSomethingWentWrong()
                 }
         return mutableTextRecognitionList

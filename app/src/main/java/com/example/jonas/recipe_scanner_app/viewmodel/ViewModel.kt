@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.graphics.Bitmap
+import android.util.Log
 import com.example.jonas.recipe_scanner_app.model.Platform
 import com.example.jonas.recipe_scanner_app.repo.Repo
 
