@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.View
 import com.example.jonas.recipe_scanner_app.activity.AddTextInputActivity
 import com.example.jonas.recipe_scanner_app.activity.CategoryActivity
@@ -41,6 +40,69 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         scanLoading.visibility = View.INVISIBLE
         scan_button_findRecipes.visibility = View.INVISIBLE
         activateLabelRecognition()
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.scanFAB -> {
+                startScaning()
+            }
+
+            R.id.scan_button_findRecipes -> {
+                startCategoryActivityIntent()
+            }
+
+            R.id.scan_button_imageScanning -> {
+                activateLabelRecognition()
+            }
+
+            R.id.scan_button_textScanning -> {
+                activateTextRecognition()
+            }
+
+            R.id.main_background_green -> {
+                startAddTextInputActivityIntent()
+            }
+        }
+    }
+
+    fun startScaning(){
+        scanLoading.visibility = View.VISIBLE
+        setRecyclerViewInvisibleWhenLoadingNewContent()
+        cameraView.captureImage { cameraKitImage ->
+            when(toggleBetweenImageAndTextRecognitionStates){
+                true -> getLabelsFromClod(cameraKitImage.bitmap)
+                else -> recognizeText(cameraKitImage.bitmap)
+            }
+        }
+    }
+
+    fun startCategoryActivityIntent(){
+        val intent = Intent(this, CategoryActivity::class.java)
+        intent.putStringArrayListExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
+        startActivityForResult(intent, 1)
+    }
+
+    fun startAddTextInputActivityIntent(){
+        val intent = Intent(this, AddTextInputActivity::class.java)
+        startActivityForResult(intent, 2)
+    }
+
+    private fun activateLabelRecognition(){
+        toggleBetweenImageAndTextRecognitionStates = true
+        setToggleButtonsBackgroundColors(true)
+        setToggleScanText(true)
+    }
+
+    private fun activateTextRecognition(){
+        toggleBetweenImageAndTextRecognitionStates = false
+        setToggleButtonsBackgroundColors(false)
+        setToggleScanText(false)
+    }
+
+    fun setRecyclerViewInvisibleWhenLoadingNewContent(){
+        scannedItemRC.visibility = View.INVISIBLE
+        scan_text_clickToSelectFood.visibility = View.INVISIBLE
     }
 
     private fun getLabelsFromClod(bitmap: Bitmap) {
@@ -78,11 +140,6 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         scan_text_clickToSelectFood.visibility = View.VISIBLE
     }
 
-    fun setRecyclerViewInvisibleWhenLoadingNewContent(){
-        scannedItemRC.visibility = View.INVISIBLE
-        scan_text_clickToSelectFood.visibility = View.INVISIBLE
-    }
-
     fun addWordToDetectedItems(word: String){
         ViewModel.getWord(word).observe(this, Observer {
             detectedItemsList.add(it.toString())
@@ -104,18 +161,6 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
             detectedItemsList.size >= 1 -> scan_button_findRecipes.visibility = View.VISIBLE
             else -> scan_button_findRecipes.visibility = View.INVISIBLE
         }
-    }
-
-    private fun activateLabelRecognition(){
-        toggleBetweenImageAndTextRecognitionStates = true
-        setToggleButtonsBackgroundColors(true)
-        setToggleScanText(true)
-    }
-
-    private fun activateTextRecognition(){
-        toggleBetweenImageAndTextRecognitionStates = false
-        setToggleButtonsBackgroundColors(false)
-        setToggleScanText(false)
     }
 
     private fun setToggleButtonsBackgroundColors(toggle: Boolean){
@@ -168,37 +213,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
             }
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.scanFAB -> {
-                scanLoading.visibility = View.VISIBLE
-                setRecyclerViewInvisibleWhenLoadingNewContent()
-                cameraView.captureImage { cameraKitImage ->
-                    when(toggleBetweenImageAndTextRecognitionStates){
-                        true -> getLabelsFromClod(cameraKitImage.bitmap)
-                        else -> recognizeText(cameraKitImage.bitmap)
-                    }
-                }
-            }
-
-            R.id.scan_button_findRecipes -> {
-                val intent = Intent(this, CategoryActivity::class.java)
-                intent.putStringArrayListExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
-                startActivityForResult(intent, 1)
-            }
-
-            R.id.scan_button_imageScanning -> {activateLabelRecognition()}
-
-            R.id.scan_button_textScanning -> {activateTextRecognition()}
-
-            R.id.main_background_green -> {
-                val intent = Intent(this, AddTextInputActivity::class.java)
-                startActivityForResult(intent, 2)
-            }
-        }
-    }
-
-    fun runToastErrorMessageSomethingWentWrong(){
+        fun runToastErrorMessageSomethingWentWrong(){
         Helper.scanningFailedToastWarning(baseContext, getString(R.string.something_went_wrong))
     }
 

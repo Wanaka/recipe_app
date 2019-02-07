@@ -13,6 +13,10 @@ class WebActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web)
+        searchRecipeOnWeb()
+    }
+
+    fun searchRecipeOnWeb(){
         web_webview_web.loadUrl("${intent.getParcelableExtra<Platform>(Constant.PLATFORM_URL)._url}" +
                 "${Helper.queryIngredients(intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY))}")
     }

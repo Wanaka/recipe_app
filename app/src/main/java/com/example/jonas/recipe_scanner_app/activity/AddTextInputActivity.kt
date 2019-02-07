@@ -21,11 +21,7 @@ class AddTextInputActivity : AppCompatActivity(), View.OnClickListener {
         addtextinput_input_food.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
                     if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                         if(!addtextinput_input_food.text.isEmpty()) {
-                            val addNewFoodToList = addtextinput_input_food.text.toString()
-                            val intent = Intent(this, ScanActivity::class.java)
-                            intent.putExtra(Constant.PUT_EXTRA_KEY, addNewFoodToList)
-                            setResult(RESULT_OK, intent)
-                            finish()
+                            startScanActivityIntentWithData()
                             return@OnKeyListener true
                         } else {
                             com.example.jonas.recipe_scanner_app.helper.Helper.scanningFailedToastWarning(baseContext, "You need to write something")
@@ -39,28 +35,34 @@ class AddTextInputActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.addTextInput_button_save -> {
                 if(!addtextinput_input_food.text.isEmpty()) {
-                    val addNewFoodToList = addtextinput_input_food.text.toString()
-                    val intent = Intent(this, ScanActivity::class.java)
-                    intent.putExtra(Constant.PUT_EXTRA_KEY, addNewFoodToList)
-                    setResult(RESULT_OK, intent)
-                    finish()
+                    startScanActivityIntentWithData()
                 } else {
                     com.example.jonas.recipe_scanner_app.helper.Helper.scanningFailedToastWarning(baseContext, "You need to write something")
                 }
             }
 
             R.id.addTextInput_button_close -> {
-                val intent = Intent(this, ScanActivity::class.java)
-                setResult(RESULT_OK, intent)
-                finish()
+                startScanActivityIntent()
             }
         }
     }
 
     override fun onBackPressed() {
+        startScanActivityIntent()
+        super.onBackPressed()
+    }
+
+    fun startScanActivityIntentWithData(){
+        val addNewFoodToList = addtextinput_input_food.text.toString()
+        val intent = Intent(this, ScanActivity::class.java)
+        intent.putExtra(Constant.PUT_EXTRA_KEY, addNewFoodToList)
+        setResult(RESULT_OK, intent)
+        finish()
+    }
+
+    fun startScanActivityIntent(){
         val intent = Intent(this, ScanActivity::class.java)
         setResult(RESULT_OK, intent)
         finish()
-        super.onBackPressed()
     }
 }

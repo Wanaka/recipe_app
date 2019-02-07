@@ -23,9 +23,13 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.first_button_startScan -> {
-                val intent = Intent(this, ScanActivity::class.java)
-                startActivityForResult(intent, 0)
+                startIntent()
             }
         }
+    }
+
+    fun startIntent(){
+        val intent = Intent(this, ScanActivity::class.java)
+        startActivityForResult(intent, 0)
     }
 }
