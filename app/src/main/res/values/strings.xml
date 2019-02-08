@@ -8,8 +8,9 @@
     <string name="something_went_wrong">Sorry, something went wrong!</string>
     <string name="scan_button_text">Scan</string>
     <string name="done_button">Done ></string>
-    <string name="category_title">Chose Category</string>
+    <string name="category_title">Choose Category</string>
     <string name="scan_app_title">Fooder</string>
+    <string name="web_title">Web Title</string>
     <string name="title_scanne_items">Scanned Items</string>
     <string name="which_platform">Where do you want to find a great recipe?</string>
     <string name="button_find">Find Recipe</string>
