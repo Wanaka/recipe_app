@@ -16,7 +16,7 @@ class WebActivity : AppCompatActivity() {
         searchRecipeOnWeb()
     }
 
-    fun searchRecipeOnWeb(){
+    private fun searchRecipeOnWeb(){
         web_webview_web.loadUrl("${intent.getParcelableExtra<Platform>(Constant.PLATFORM_URL)._url}" +
                 "${Helper.queryIngredients(intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY))}")
     }

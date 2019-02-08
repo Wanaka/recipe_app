@@ -40,10 +40,16 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         category_button_findRecipe.setOnClickListener(this)
         cardDetectedItemsRV.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
         card_rv_platform_rv.layoutManager = GridLayoutManager(this, Constant.RECYCLER_VIEW_SPAN_COUNT)
-
-        //Get list from ScanActivity and put it in RecyclerView
         addDetectedItemsListRecyclerView(intent.getStringArrayListExtra(Constant.PUT_EXTRA_KEY))
-        addPlatformsRecyclerView() //Platform recyclerview
+        addPlatformsRecyclerView()
+    }
+
+    private fun addDetectedItemsListRecyclerView(list: List<String>){
+        com.example.jonas.recipe_scanner_app.viewmodel.ViewModel.getListDetectedItems(list).observe(this, Observer {
+            for(item in it!!) detectedItemsList.add(item)
+            detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.CATEGORY)
+            cardDetectedItemsRV.adapter = detectedItemAdapter
+        })
     }
 
     private fun addPlatformsRecyclerView(){
@@ -58,14 +64,6 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    private fun addDetectedItemsListRecyclerView(list: List<String>){
-        com.example.jonas.recipe_scanner_app.viewmodel.ViewModel.getListDetectedItems(list).observe(this, Observer {
-            for(item in it!!) detectedItemsList.add(item)
-            detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.CATEGORY)
-            cardDetectedItemsRV.adapter = detectedItemAdapter
-        })
-    }
-
     fun deleteWordToDetectedItems(position: Int){
         detectedItemsList.removeAt(position)
         detectedItemAdapter = DetectedImageAdapter(detectedItemsList, Constant.CATEGORY)
@@ -75,38 +73,41 @@ class CategoryActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.category_fab_addMoreItems -> { //Send list back to ScanActivity
-                val intent = Intent(this, ScanActivity::class.java)
-                intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
-                setResult(RESULT_OK, intent)
-                finish()
+                startScanActivityIntent()
             }
+
             R.id.category_button_findRecipe -> {
-                val intent = Intent(this, WebActivity::class.java)
-                intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
-                intent.putExtra(Constant.PLATFORM_URL, sendPlatformFromAdapterToWeb)
-                startActivity(intent)
+                startWebActivityIntent()
             }
         }
     }
 
     override fun onBackPressed() { //Send list back to ScanActivity
-        val intent = Intent(this, ScanActivity::class.java)
-        intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
-        setResult(RESULT_OK, intent)
-        finish()
+        startScanActivityIntent()
         super.onBackPressed()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             android.R.id.home -> {
-                val intent = Intent(this, ScanActivity::class.java)
-                intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
-                setResult(RESULT_OK, intent)
-                finish()
+                startScanActivityIntent()
             }
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    private fun startScanActivityIntent(){
+        val intent = Intent(this, ScanActivity::class.java)
+        intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
+        setResult(RESULT_OK, intent)
+        finish()
+    }
+
+    private fun startWebActivityIntent(){
+        val intent = Intent(this, WebActivity::class.java)
+        intent.putExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
+        intent.putExtra(Constant.PLATFORM_URL, sendPlatformFromAdapterToWeb)
+        startActivity(intent)
     }
 }

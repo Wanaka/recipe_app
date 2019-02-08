@@ -28,7 +28,7 @@ class FirstActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun startIntent(){
+    private fun startIntent(){
         val intent = Intent(this, ScanActivity::class.java)
         startActivityForResult(intent, 0)
     }

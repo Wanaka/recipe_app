@@ -66,7 +66,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
-    fun startScaning(){
+    private fun startScaning(){
         scanLoading.visibility = View.VISIBLE
         setRecyclerViewInvisibleWhenLoadingNewContent()
         cameraView.captureImage { cameraKitImage ->
@@ -77,13 +77,13 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
-    fun startCategoryActivityIntent(){
+    private fun startCategoryActivityIntent(){
         val intent = Intent(this, CategoryActivity::class.java)
         intent.putStringArrayListExtra(Constant.PUT_EXTRA_KEY, detectedItemsList)
         startActivityForResult(intent, 1)
     }
 
-    fun startAddTextInputActivityIntent(){
+    private fun startAddTextInputActivityIntent(){
         val intent = Intent(this, AddTextInputActivity::class.java)
         startActivityForResult(intent, 2)
     }
@@ -100,7 +100,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         setToggleScanText(false)
     }
 
-    fun setRecyclerViewInvisibleWhenLoadingNewContent(){
+    private fun setRecyclerViewInvisibleWhenLoadingNewContent(){
         scannedItemRC.visibility = View.INVISIBLE
         scan_text_clickToSelectFood.visibility = View.INVISIBLE
     }
@@ -135,7 +135,7 @@ class ScanActivity : AppCompatActivity(), View.OnClickListener{
         })
     }
 
-    fun setRecyclerViewContentVisible(){
+    private fun setRecyclerViewContentVisible(){
         scannedItemRC.visibility = View.VISIBLE
         scan_text_clickToSelectFood.visibility = View.VISIBLE
     }

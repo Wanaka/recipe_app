@@ -52,7 +52,7 @@ class AddTextInputActivity : AppCompatActivity(), View.OnClickListener {
         super.onBackPressed()
     }
 
-    fun startScanActivityIntentWithData(){
+    private fun startScanActivityIntentWithData(){
         val addNewFoodToList = addtextinput_input_food.text.toString()
         val intent = Intent(this, ScanActivity::class.java)
         intent.putExtra(Constant.PUT_EXTRA_KEY, addNewFoodToList)
@@ -60,7 +60,7 @@ class AddTextInputActivity : AppCompatActivity(), View.OnClickListener {
         finish()
     }
 
-    fun startScanActivityIntent(){
+    private fun startScanActivityIntent(){
         val intent = Intent(this, ScanActivity::class.java)
         setResult(RESULT_OK, intent)
         finish()
